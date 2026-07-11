@@ -15932,7 +15932,7 @@ nav.pagination-wrapper .btn.dropdown-toggle:after {
 .navbar .close-div .close-menu {
   background: rgba(0, 0, 0, 0);
   pointer-events: all;
-  color: rgb(80.1822, 107.1, 79.254);
+  color: #ffffff;
   font-size: 0.75rem;
   padding: 0;
   width: 44px;
@@ -28799,3 +28799,85 @@ body > footer.it-footer {
   border-top: 3px solid #506b4f;
 }
 .goverlay { background: rgba(0, 0, 0, .92); }
+
+/* Logo brand: visibile anche su mobile (era d-none d-md-block), ma
+   ridotto: a 80px sballa la riga con toggler/titolo su schermi stretti. */
+@media (max-width: 767.98px) {
+  .it-brand-logo {
+    height: 70px !important;
+    margin-right: 0.75rem !important;
+  }
+  .it-header-center-wrapper .it-header-center-content-wrapper .it-brand-wrapper a .it-brand-title {
+    font-size: 1.15rem !important;
+  }
+}
+/* Toggler hamburger spostato a sx del logo (dentro it-brand row): eredita
+   fill blu di default (.custom-navbar-toggler .icon), serve bianco per
+   contrasto sullo sfondo verde dell'header. */
+.it-header-center-wrapper .it-header-center-content-wrapper .custom-navbar-toggler .icon {
+  fill: #fff;
+}
+.it-header-center-wrapper .it-header-center-content-wrapper .custom-navbar-toggler {
+  margin-right: 0.75rem;
+}
+
+@media (max-width: 767.98px) {
+  .it-header-wrapper .it-nav-wrapper .it-brand-wrapper {
+    padding-left: 4px;
+  }
+}
+
+/* Scala tipografica H1-H6 per mobile/tablet stretti: la scala AGID di
+   bootstrap-italia è mobile-first ma parte da valori pensati per hero
+   di grandi dimensioni (h1 40px, weight 700, letter-spacing -1px) — su
+   uno schermo <768px un h1 così grande manda il titolo su 3+ righe e
+   schiaccia il resto del contenuto sotto la piega. Peso/letter-spacing
+   restano quelli del design system, si riducono solo size e line-height. */
+@media (max-width: 767.98px) {
+  h1, .h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    letter-spacing: normal;
+  }
+  h2, .h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  h3, .h3 {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
+  h4, .h4 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+  h5, .h5 {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+  h6, .h6 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+/* Iconcina freccina sottomenu nel menu mobile: nav-link e dropdown-toggle
+   sono due <li> figli block distinti, quindi la freccina cadeva su una
+   riga propria sotto il testo invece che a fianco. Riga flessa in modo che
+   la freccina finisca sulla stessa riga della voce, spinta al bordo destro
+   (margin-left:auto); la dropdown-menu, quando aperta, va comunque a
+   capo su riga propria (flex-basis:100%). Solo le voci con sottomenu
+   (li.nav-item.dropdown) sono toccate: le voci semplici restano invariate. */
+@media (max-width: 991.98px) {
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item.dropdown {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item.dropdown button.btn.dropdown-toggle {
+    margin-left: auto;
+  }
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item.dropdown .dropdown-menu {
+    flex-basis: 100%;
+  }
+}

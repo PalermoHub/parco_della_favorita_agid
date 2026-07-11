@@ -23,7 +23,7 @@
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
 
   <header class="it-header-wrapper">
-  <div class="it-header-slim-wrapper">
+  <div class="it-header-slim-wrapper d-none d-md-block">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -41,14 +41,19 @@
         <div class="row">
           <div class="col-12">
             <div class="it-header-center-content-wrapper">
+              <div class="d-flex align-items-center">
+              <button class="custom-navbar-toggler" type="button" aria-controls="nav-principale" aria-expanded="false" aria-label="Apri/chiudi menu" data-bs-toggle="navbarcollapsible" data-bs-target="#nav-principale">
+            <svg class="icon"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-burger"></use></svg><span class="visually-hidden">Menu</span>
+          </button>
               <div class="it-brand-wrapper">
                 <a href="../">
-                  <img src="../assets/img/logo-ente.png" alt="Logo Comune di Palermo" class="d-none d-md-block" style="height:80px; margin-right:2rem;">
+                  <img src="../assets/img/logo-ente.png" alt="Logo Comune di Palermo" class="it-brand-logo" style="height:80px; margin-right:2rem;">
                   <div class="it-brand-text">
                     <div class="it-brand-title">Studio di fattibilità e valorizzazione del Parco della Favorita</div>
                     <div class="it-brand-tagline d-none d-md-block">Comune di Palermo</div>
                   </div>
                 </a>
+              </div>
               </div>
               <div class="it-right-zone">
                 <div class="it-socials d-none d-md-flex">
@@ -87,13 +92,10 @@
     <div class="it-header-navbar-wrapper">
       <div class="container">
         <nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
-          <button class="custom-navbar-toggler" type="button" aria-controls="nav-principale" aria-expanded="false" aria-label="Apri/chiudi menu" data-bs-toggle="collapse" data-bs-target="#nav-principale">
-            <span class="it-list"></span> Menu
-          </button>
           <div class="navbar-collapsable" id="nav-principale">
             <div class="overlay"></div>
             <div class="close-div">
-              <button class="btn close-menu" type="button" data-bs-toggle="collapse" data-bs-target="#nav-principale" aria-label="Chiudi menu">
+              <button class="btn close-menu" type="button" aria-label="Chiudi menu">
                 <span>Chiudi</span>
               </button>
             </div>
