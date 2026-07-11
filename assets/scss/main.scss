@@ -1,0 +1,48 @@
+// Palette verde ripresa da Favorita-Agid (index.html / assets/stylesheets/gbextra.css):
+// --md-primary-fg-color: #516C50, --md-primary-fg-color--light: #89b487, --md-primary-fg-color--dark: #2a3a29
+$primary-h: 118;
+$primary-s: 26;
+$primary-b: 42;
+
+@import "bootstrap-italia/src/scss/bootstrap-italia";
+
+// Palette custom header/footer (richiesta 2026-07-10)
+.it-header-slim-wrapper {
+  background-color: #112d2a;
+}
+
+.it-header-center-wrapper,
+.it-header-navbar-wrapper {
+  background-color: #576b51;
+}
+
+.it-footer,
+.it-footer-main {
+  background-color: #232c21;
+}
+
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-wrapper a .it-brand-title {
+  font-size: 1.35rem;
+}
+
+// Back-to-top: hover arancione (da screenshot 2026-07-10_23h46_29.png)
+.back-to-top:hover {
+  background: #ED9720;
+}
+
+// Menu principale: riduce spaziatura tra voci e allinea la prima voce al logo
+@include media-breakpoint-up(lg) {
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav {
+    li a.nav-link,
+    li button.nav-link {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      white-space: nowrap;
+    }
+
+    > li:first-child a.nav-link,
+    > li:first-child button.nav-link {
+      padding-left: 0;
+    }
+  }
+}

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Macro aree dello Studio di Fattibilità</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Piano complessivo di fattibilità per la conservazione, gestione e valorizzazione del Parco della Favorita">
+  <meta name="author" content="@gbvitrano">
+
+  <!-- Altri CSS -->
+  <link rel="stylesheet" href="css/leaflet.css">
+  <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+  <link rel="stylesheet" href="css/qgis2web.css">
+  <link rel="stylesheet" href="css/fontawesome-all.min.css">
+
+  <style type="text/css">
+    body {
+       margin: 0;
+       padding: 0;
+    }
+    html, body, #map {
+       width: 100%;
+       height: 100%;     overflow-x: hidden;
+    }
+    .legend-image {
+      position: absolute;
+      bottom: 90px;
+      right: 15px;
+      width: 50px;
+      height: auto;
+      z-index: 1000;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+	    .logo {
+      position: absolute;
+      bottom: 25px;
+      right: 15px;
+      width: 50px;
+      height: auto;
+      z-index: 1000;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+    }
+	
+    #fullscreenIcon { background-color: #ffffffdb; padding: 3px;
+            position: absolute; /* Posiziona l'icona all'interno della mappa */
+            top: 90px; /* Distanza dall'alto */
+            left: 12px; /* Distanza dal lato destro */
+            cursor: pointer; /* Cambia il cursore in "puntatore" quando si passa sopra l'icona */
+            z-index: 99999; /* Assicura che l'icona sia sopra la mappa */
+            width: 25px; /* Dimensione dell'icona */
+            height: 25px; /* Dimensione dell'icona */
+            transition: transform 0.3s ease; /* Effetto di animazione */
+        }
+
+        #fullscreenIcon.fullscreenActive {
+            transform: rotate(45deg); /* Ruota l'icona quando è in modalità fullscreen */
+        }
+
+    #legendPopup {
+        display: none;
+        position: absolute;
+        z-index: 10000;
+        background: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        cursor: move;
+    }
+
+    #closeLegendPopup {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        cursor: pointer;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="map">
+  		<img src="https://palermohub.opendatasicilia.it/legend/umap/comune_pa.png" alt="Comune Palermo" title="Comune Palermo" class="logo"> 
+  
+    <!-- Icona per attivare/disattivare il fullscreen -->
+    <img id="fullscreenIcon" src="css/icon-fullscreen.png" alt="Full Screen Mode">
+    
+    <!-- Legenda dinamica -->
+    <img id="dynamicLegend" src="" alt="Legenda" title="Legenda" class="legend-image" style="display: none;">
+		
+
+  </div>
+
+  <!-- Popup per l'immagine ingrandita -->
+  <div id="legendPopup">
+    <div id="legendPopupContent">
+        <img id="enlargedLegend" src="" alt="Legenda Ingrandita" style="max-width: 100%; max-height: 80vh;">
+        <span id="closeLegendPopup">×</span>
+    </div>
+  </div>
+
+  <!-- Altri script -->
+  <script src="js/qgis2web_expressions.js"></script>
+  <script src="js/leaflet.js"></script>
+  <script src="js/L.Control.Layers.Tree.min.js"></script>
+  <script src="js/leaflet.rotatedMarker.js"></script>
+  <script src="js/leaflet.pattern.js"></script>
+  <script src="js/leaflet-hash.js"></script>
+  <script src="js/Autolinker.min.js"></script>
+  <script src="js/rbush.min.js"></script>
+  <script src="js/labelgun.min.js"></script>
+  <script src="js/labels.js"></script>
+  <script src="data/studio_fatt_1.js"></script>
+  <script src="data/area_buco_1.js"></script>
+
+  <script>
+    var highlightLayer;
+
+    function highlightFeature(e) {
+        highlightLayer = e.target;
+
+        if (e.target.feature.geometry.type === 'LineString' || e.target.feature.geometry.type === 'MultiLineString') {
+          highlightLayer.setStyle({
+            color: '#ffff00',
+          });
+        } else {
+          highlightLayer.setStyle({
+            fillColor: '#ffff00',
+            fillOpacity:.45
+          });
+        }
+    }
+
+    var map = L.map('map', {
+        zoomControl: false,
+        maxZoom: 18,
+        minZoom: 13,  // Imposta il minimo zoom a 13
+        maxBounds: [
+            [38.120, 13.300],  // Coordinate del limite sud-ovest
+            [38.220, 13.380]   // Coordinate del limite nord-est
+        ],
+        maxBoundsViscosity: 1.0 // Impedisce all'utente di spostarsi fuori dai limiti
+    }).setView([38.170, 13.343], 13);  // Centra la mappa sul Parco della Favorita con zoom 13
+
+    var hash = new L.Hash(map);
+
+    map.attributionControl.setPrefix('<a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+    var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+
+    function removeEmptyRowsFromPopupContent(content, feature) {
+        var tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        var rows = tempDiv.querySelectorAll('tr');
+        for (var i = 0; i < rows.length; i++) {
+            var td = rows[i].querySelector('td.visible-with-data');
+            var key = td ? td.id : '';
+            if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                rows[i].parentNode.removeChild(rows[i]);
+            }
+        }
+        return tempDiv.innerHTML;
+    }
+
+    function addClassToPopupIfMedia(content, popup) {
+        var tempDiv = document.createElement('div');
+        tempDiv.innerHTML = content;
+        if (tempDiv.querySelector('td img')) {
+            popup._contentNode.classList.add('media');
+            setTimeout(function() {
+                popup.update();
+            }, 10);
+        } else {
+            popup._contentNode.classList.remove('media');
+        }
+    }
+
+    var zoomControl = L.control.zoom({
+        position: 'topleft'
+    }).addTo(map);
+
+    var bounds_group = new L.featureGroup([]);
+
+    // Aggiungi il layer di OpenStreetMap come base
+    var Jawg_Light = L.tileLayer('https://{s}.piano.tiles.quaidorsay.fr/ar/{z}/{x}/{y}.png', {
+        attribution: 'map data © OpenStreetMap contributors under ODbL - tiles © Aff. Étrangères',
+        minZoom: 13,
+        maxZoom: 18,
+    }).addTo(map);
+
+    // Aggiungi il layer di Città di Palermo - CTC - Carta Tecnica Comunale
+    L.tileLayer('https://siciliahub.github.io/Tiles/ctr_pa_2k/{z}/{x}/{y}.png', {
+        attribution: 'CTC - Carta Tecnica Comunale – 2006'
+    }).addTo(map);
+
+    // Aggiungi il tuo layer macro aree
+    L.tileLayer('https://palermohub.github.io/Parco_della_Favorita/macro_aree/{z}/{x}/{y}.png', {
+        minZoom: 13,
+        maxZoom: 16,
+        tms: false,
+        attribution: 'Created by QGIS - @gbvitrano&nbsp;&nbsp;'
+    }).addTo(map);
+
+    var tilesource_layer = L.tileLayer('https://palermohub.github.io/PRG2004/p_fatt/{z}/{x}/{y}.png', {
+        minZoom: 17,
+        maxZoom: 18,
+        tms: false,
+        attribution: 'Created by QGIS - @gbvitrano&nbsp;&nbsp;'
+    }).addTo(map);
+
+    // buco
+    function pop_area_buco_1(feature, layer) {
+        var popupContent = '<table>\
+                <tr>\
+                    <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(String(feature.properties['fid']).replace(/'/g, '\'').replace(/"/g, '&quot;').toLocaleString()) : '') + '</td>\
+                </tr>\
+            </table>';
+        var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+        layer.on('popupopen', function(e) {
+            addClassToPopupIfMedia(content, e.popup);
+        });
+        layer.bindPopup(content, { maxHeight: 400 });
+    }
+
+    function style_area_buco_1_0() {
+        return {
+            pane: 'pane_area_buco_1',
+            stroke: false, 
+            fill: true,
+            fillOpacity: 1,
+            fillColor: 'rgba(255,255,255,0.7490196078431373)',
+            interactive: false,
+        }
+    }
+    map.createPane('pane_area_buco_1');
+    map.getPane('pane_area_buco_1').style.zIndex = 401;
+    map.getPane('pane_area_buco_1').style['mix-blend-mode'] = 'normal';
+    var layer_area_buco_1 = new L.geoJson(json_area_buco_1, {
+        attribution: '',
+        interactive: false,
+        dataVar: 'json_area_buco_1',
+        layerName: 'layer_area_buco_1',
+        pane: 'pane_area_buco_1',
+        onEachFeature: pop_area_buco_1,
+        style: style_area_buco_1_0,
+    });
+    bounds_group.addLayer(layer_area_buco_1);
+ //   map.addLayer(layer_area_buco_1);
+    setBounds();
+
+    // poligoni studio fattibilità
+    function pop_studio_fatt_1(feature, layer) {
+        layer.on({
+            mouseout: function(e) {
+                for (var i in e.target._eventParents) {
+                    if (typeof e.target._eventParents[i].resetStyle === 'function') {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                }
+                if (typeof layer.closePopup == 'function') {
+                    layer.closePopup();
+                } else {
+                    layer.eachLayer(function(feature){
+                        feature.closePopup()
+                    });
+                }
+            },
+            mouseover: highlightFeature,
+        });
+
+        var popupContent = '<table>\
+            <tr>\
+                <th scope="row">Macro area</th>\
+                <td class="visible-with-data" id="Macro_aree">' + (feature.properties['Macro_aree'] !== null ? autolinker.link(String(feature.properties['Macro_aree']).replace(/'/g, '\'').replace(/"/g, '&quot;').toLocaleString()) : '') + '</td>\
+            </tr>\
+            <tr>\
+                <th scope="row">Classe</th>\
+                <td class="visible-with-data" id="Etichetta_MA">' + (feature.properties['Etichetta_MA'] !== null ? autolinker.link(String(feature.properties['Etichetta_MA']).replace(/'/g, '\'').replace(/"/g, '&quot;').toLocaleString()) : '') + '</td>\
+            </tr>\
+            <tr>\
+                <th scope="row"><hr></th>\
+                <td class="visible-with-data" id="Zonizzazione"><hr></td>\
+            </tr>\
+            <tr>\
+                <th scope="row">Studio Fattibilità</th>\
+                <td class="visible-with-data" id="Zonizzazione">' + (feature.properties['Zonizzazione'] !== null ? autolinker.link(String(feature.properties['Zonizzazione']).replace(/'/g, '\'').replace(/"/g, '&quot;').toLocaleString()) : '') + '</td>\
+            </tr>\
+            <tr>\
+                <th scope="row">Classe</th>\
+                <td class="visible-with-data" id="classificazione">' + (feature.properties['classificazione'] !== null ? autolinker.link(String(feature.properties['classificazione']).replace(/'/g, '\'').replace(/"/g, '&quot;').toLocaleString()) : '') + '</td>\
+            </tr>\
+        </table>';
+
+        var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+        layer.on('popupopen', function(e) {
+            addClassToPopupIfMedia(content, e.popup);
+        });
+        layer.bindPopup(content, { maxHeight: 400 });
+    }
+
+    function style_studio_fatt_1_0() {
+        return {
+            pane: 'pane_studio_fatt_1',
+            stroke: false,
+            fillOpacity: 0,
+            interactive: true,
+        }
+    }
+
+    map.createPane('pane_studio_fatt_1');
+    map.getPane('pane_studio_fatt_1').style.zIndex = 390;
+    map.getPane('pane_studio_fatt_1').style['mix-blend-mode'] = 'normal';
+
+    var layer_studio_fatt_1 = new L.geoJson(json_studio_fatt_1, {
+        attribution: '',
+        interactive: true,
+        dataVar: 'json_studio_fatt_1',
+        layerName: 'layer_studio_fatt_1',
+        pane: 'pane_studio_fatt_1',
+        onEachFeature: pop_studio_fatt_1,
+        style: style_studio_fatt_1_0,
+    });
+
+    bounds_group.addLayer(layer_studio_fatt_1);
+    map.addLayer(layer_studio_fatt_1);
+
+    // Definizione della funzione setBounds
+    function setBounds() {
+        if (bounds_group.getLayers().length > 0) {
+            map.fitBounds(bounds_group.getBounds());
+        }
+    }
+
+    // Imposta i limiti della mappa
+    setBounds();
+
+    // Gestione della legenda dinamica
+    var dynamicLegend = document.getElementById('dynamicLegend');
+
+    function updateLegend() {
+        var zoom = map.getZoom();
+        if (zoom >= 13 && zoom <= 16) {
+            dynamicLegend.src = 'legend/leg_macro_aree.jpg';
+            dynamicLegend.style.display = 'block';
+        } else if (zoom >= 17 && zoom <= 18) {
+            dynamicLegend.src = 'legend/leg_studio.jpg';
+            dynamicLegend.style.display = 'block';
+        } else {
+            dynamicLegend.style.display = 'none';
+        }
+    }
+
+    // Aggiorna la legenda quando cambia lo zoom
+    map.on('zoomend', function() {
+        updateLegend();
+    });
+
+    // Imposta la legenda iniziale
+    updateLegend();
+
+    // Funzione per aprire il popup con l'immagine ingrandita
+    function openLegendPopup(imageSrc) {
+        var popup = document.getElementById('legendPopup');
+        var enlargedLegend = document.getElementById('enlargedLegend');
+        enlargedLegend.src = imageSrc;
+        popup.style.display = 'block';
+
+        // Posiziona il popup al centro della mappa inizialmente
+        var mapRect = document.getElementById('map').getBoundingClientRect();
+        popup.style.left = (mapRect.width / 2 - popup.offsetWidth / 2) + 'px';
+        popup.style.top = (mapRect.height / 2 - popup.offsetHeight / 2) + 'px';
+    }
+
+    // Funzione per chiudere il popup
+    function closeLegendPopup() {
+        var popup = document.getElementById('legendPopup');
+        popup.style.display = 'none';
+    }
+
+    // Aggiungi un listener per il clic sull'immagine della legenda
+    dynamicLegend.addEventListener('click', function() {
+        openLegendPopup(this.src);
+    });
+
+    // Aggiungi un listener per chiudere il popup quando si clicca sul pulsante di chiusura
+    var closePopupButton = document.getElementById('closeLegendPopup');
+    closePopupButton.addEventListener('click', function(event) {
+        event.stopPropagation(); // Impedisce la propagazione del clic al popup
+        closeLegendPopup();
+    });
+
+    // Gestione del trascinamento del popup
+    var popup = document.getElementById('legendPopup');
+    popup.addEventListener('mousedown', function(event) {
+        if (event.target === popup || event.target === document.getElementById('legendPopupContent')) {
+            isDragging = true;
+            offsetX = event.clientX - popup.offsetLeft;
+            offsetY = event.clientY - popup.offsetTop;
+        }
+    });
+
+    document.addEventListener('mousemove', function(event) {
+        if (isDragging) {
+            popup.style.left = (event.clientX - offsetX) + 'px';
+            popup.style.top = (event.clientY - offsetY) + 'px';
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+  </script>
+  <script>
+        const fullscreenIcon = document.getElementById('fullscreenIcon');
+        const mapElement = document.getElementById('map');
+
+        // Funzione per attivare il fullscreen
+        function enterFullscreen() {
+            if (mapElement.requestFullscreen) {
+                mapElement.requestFullscreen();
+            } else if (mapElement.mozRequestFullScreen) { // Firefox
+                mapElement.mozRequestFullScreen();
+            } else if (mapElement.webkitRequestFullscreen) { // Chrome, Safari e Opera
+                mapElement.webkitRequestFullscreen();
+            } else if (mapElement.msRequestFullscreen) { // IE/Edge
+                mapElement.msRequestFullscreen();
+            }
+
+            // Cambia l'icona in "resize.png"
+            fullscreenIcon.src = 'css/resize.png';
+            fullscreenIcon.alt = 'Resize Mode';
+        }
+
+        // Funzione per uscire dal fullscreen
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { // Firefox
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { // Chrome, Safari e Opera
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { // IE/Edge
+                document.msExitFullscreen();
+            }
+
+            // Ripristina l'icona originale "icon-fullscreen.png"
+            fullscreenIcon.src = 'css/icon-fullscreen.png';
+            fullscreenIcon.alt = 'Full Screen Mode';
+        }
+
+        // Gestione del click sull'icona
+        fullscreenIcon.addEventListener('click', () => {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                enterFullscreen(); // Entra in modalità fullscreen
+            } else {
+                exitFullscreen(); // Esce dalla modalità fullscreen
+            }
+        });
+
+        // Evento per monitorare quando il fullscreen viene disattivato manualmente
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                // Ripristina l'icona originale se si esce dal fullscreen
+                fullscreenIcon.src = 'css/icon-fullscreen.png';
+                fullscreenIcon.alt = 'Full Screen Mode';
+            }
+        });
+
+        document.addEventListener('webkitfullscreenchange', () => {
+            if (!document.webkitFullscreenElement) {
+                fullscreenIcon.src = 'css/icon-fullscreen.png';
+                fullscreenIcon.alt = 'Full Screen Mode';
+            }
+        });
+
+        document.addEventListener('mozfullscreenchange', () => {
+            if (!document.mozFullScreenElement) {
+                fullscreenIcon.src = 'css/icon-fullscreen.png';
+                fullscreenIcon.alt = 'Full Screen Mode';
+            }
+        });
+
+        document.addEventListener('MSFullscreenChange', () => {
+            if (!document.msFullscreenElement) {
+                fullscreenIcon.src = 'css/icon-fullscreen.png';
+                fullscreenIcon.alt = 'Full Screen Mode';
+            }
+        });
+    </script>
+</body>
+</html>

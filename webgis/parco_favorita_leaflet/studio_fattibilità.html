@@ -1,0 +1,346 @@
+﻿<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+        <link rel="stylesheet" href="css/nouislider.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+		<link rel="stylesheet" href="css/leaflet-control-credits.css" />
+		<link href="css/Leaflet_GraphicScale_min.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/LControlMousePosition.css" />
+		<link rel="stylesheet" href="css/leaflet.zoomhome.css"/>
+		<link href="css/introLoader.css" rel="stylesheet">
+	    <link rel="stylesheet" href="css/Leaflet.BigImage.css">
+		<link rel="stylesheet" type="text/css" href="css/leaflet-history.css">
+		<link rel="stylesheet" href="css/leaflet-sidepanel.css" />
+		<link rel="stylesheet" type="text/css" href="css/leaflet.scalefactor.css">
+		<link rel="stylesheet" type="text/css" href="css/studio.css">
+    
+
+        <title>Parco della Favorita - Palermo 2024 | Macro aree e  Studio di fattibilità </title>
+        <style>
+        #print-header { display: none; }
+        @page { margin: 0; }
+        @media print {
+            body { margin: 0; overflow: hidden; }
+            #element, #map-toolbar,
+            .leaflet-top, .leaflet-bottom.leaflet-right,
+            #mySidepanelRight, .sidepanel-toggle-container { display: none !important; }
+            #map {
+                position: fixed !important;
+                inset: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+            }
+            #print-header {
+                display: block !important;
+                position: absolute;
+                top: 0; left: 0; right: 0;
+                z-index: 9999;
+                text-align: center;
+                padding: 8px 16px;
+                background: rgba(255,255,255,0.88);
+                font-family: sans-serif;
+                font-size: 13pt;
+                font-weight: bold;
+                letter-spacing: 0.02em;
+            }
+            #map-legend {
+                display: block !important;
+                max-height: 75vh !important;
+                overflow-y: auto !important;
+            }
+        }
+        </style>
+    </head>
+    <body>
+	
+		<!-- Caricamento -->
+<!-- jQuery, Helpers and jqueryIntrLoader -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="js/jquery.easing.1.3.js"></script>
+        <script src="js/spin.min.js"></script>
+        <script src="js/jquery.introLoader.js"></script>
+		<div id="element" class="introLoading"></div>
+				<script>
+			$(document).on('ready', function() {
+				$("#element").introLoader({
+                    animation: {
+                        name: 'lettersLoader',
+                        options: {
+                            ease: "easeInOutCirc",
+                            style: 'light',
+                            delayBefore: 500,
+                            delayAfter: 0,
+                            exitTime: 300,
+                            loaderText: 'Macro aree e studio di fattibilità', 
+                            lettersDelayTime: 0
+							                        }
+                    },
+                    spinJs: {
+                        lines: 50, // The number of lines to draw
+                        length: 50, // The length of each line
+                        radius: 80, // The radius of the inner circle
+                        width: 3, // The line thickness
+                        color: '#333' // #rgb or #rrggbb or array of colors
+                    }
+                });
+			});
+		</script>
+		
+
+	<!-- mappa       -->
+        <div id="map">
+
+        <!-- Titolo visibile solo in stampa -->
+        <div id="print-header">Palermo &mdash; Studio di fattibilit&agrave; e valorizzazione Parco della Favorita</div>
+
+        <!-- Legenda dinamica angolo basso-sinistra -->
+        <div id="map-legend">
+
+            <div id="leg-macro">
+                <div class="leg-header">
+                    <span class="leg-title">Macro aree (zoom 13–16)</span>
+                    <button class="leg-collapse" title="Comprimi ai soli colori">◧</button>
+                </div>
+                <div class="leg-items">
+                    <div class="leg-item"><span class="leg-swatch" style="background:#b8d870;"></span><span class="leg-label">A - Giardini ornamentali</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#78c850;"></span><span class="leg-label">B - Aree agricole</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#8fa88a;"></span><span class="leg-label">C - Formazioni boschive: Macchia; Gariga; Prateria</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#e88880;"></span><span class="leg-label">E - Edifici</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#e8d870;"></span><span class="leg-label">F - Impianti sportivi</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#58d858;"></span><span class="leg-label">G - Vivaio comunale</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#90e090;"></span><span class="leg-label">PM - Parco nel Parco</span></div>
+                </div>
+            </div>
+
+            <div id="leg-studio" style="display:none;">
+                <div class="leg-header">
+                    <span class="leg-title">Studio di fattibilità (zoom 17–18)</span>
+                    <button class="leg-collapse" title="Comprimi ai soli colori">◧</button>
+                </div>
+                <div class="leg-items">
+                    <div class="leg-item"><span class="leg-swatch" style="background:#d8f0d0;"></span><span class="leg-label">A1 - Giardini storici in cui sono ammessi esclusivamente interventi di manutenzione e di ripristino filologico</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#c0e0b0;"></span><span class="leg-label">A2 - Giardini storici di cui si conosce l'impianto planimetrico, ancora parzialmente esistente, nei quali si prevede il restauro dell'impianto con il mantenimento della flora esistente</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#a8d090;"></span><span class="leg-label">A3 - Giardini di nuovo impianto in aree degradate da destinare alla pubblica fruizione</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#c0d898;"></span><span class="leg-label">A4 - Giardino storico con sovrapposti coltivi di recente impianto</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#e8e0a8;"></span><span class="leg-label">B1 - Aree agricole di interesse storico</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#d8c030;"></span><span class="leg-label">B2 - Aree di pregio paesaggistico policolturale</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#e8e090;"></span><span class="leg-label">B3 - Aree agricole da mantenere e riordinare</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#c8e080;"></span><span class="leg-label">B4 - Aree agricole con carattere museale e didattico</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#4a7050;"></span><span class="leg-label">C1 - Aree a macchia, gariga e prateria di interesse naturalistico, nelle quali gli interventi devono limitarsi all'eliminazione della flora esotica (con esclusione di eventuali piante monumentali)</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#48c048;"></span><span class="leg-label">C2 - Impianti artificiali, di interesse storico e paesaggistico, da recuperare</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#98d018;"></span><span class="leg-label">C3 - Aree incolte o degradate, occupate da coltivi o da specie esotiche, da avviare alla rinaturalizzazione</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#a0a888;"></span><span class="leg-label">C4 - Impianti artificiali, non di interesse storico, destinati alla fruizione</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#c03838;"></span><span class="leg-label">E0 - Area archeologica</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#d86868;"></span><span class="leg-label">E1 - Edifici e/o manufatti di particolare pregio storico e monumentale per i quali si prevede il restauro filologico</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#c8b0a8;"></span><span class="leg-label">E2 - Edilizia rurale riconvertibile, con interventi di manutenzione ordinaria e straordinaria, per usi funzionali del parco</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#e8c018;"></span><span class="leg-label">E3 - Edilizia precaria e superfetazioni, per le quali è prevista la demolizione</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#b09060;"></span><span class="leg-label">E4 - Edifici e strutture di interesse storico militari</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#e8d498;"></span><span class="leg-label">F - Impianti sportivi e aree a servizio degli stessi</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#50b850;"></span><span class="leg-label">G - Vivaio comunale</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#b8e8b8;"></span><span class="leg-label">PM1 - Giardini di nuovo impianto polivalenti per la pubblica fruizione</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#50a890;"></span><span class="leg-label">PM2 - Giardini agroforestali</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#88d088;"></span><span class="leg-label">PM3 - Giardini di nuovo impianto per la pubblica fruizione</span></div>
+                    <div class="leg-item"><span class="leg-swatch" style="background:#c8b888;"></span><span class="leg-label">PM4 - Parcheggio alberato</span></div>
+                </div>
+            </div>
+
+        </div>
+
+<!-- Side Panel right -->
+		<div id="mySidepanelRight" class="sidepanel" aria-label="side panel" aria-hidden="false">
+			<div class="sidepanel-inner-wrapper">
+				<nav class="sidepanel-tabs-wrapper" aria-label="sidepanel tab navigation">
+				<ul class="sidepanel-tabs">
+						<!--	<li class="sidepanel-tab">
+							<a href="#" Title="Visualizza altri tematismi" class="sidebar-tab-link" role="tab" data-tab-link="tab-1">Mappe</a>
+						</li>-->
+						<li class="sidepanel-tab">
+							<a href="#" Title="DataViz" class="sidebar-tab-link" role="tab" data-tab-link="tab-dataviz">DataViz</a>
+						</li>
+						<li class="sidepanel-tab">
+							<a href="#" Title="Note" class="sidebar-tab-link" role="tab" data-tab-link="tab-2">Note</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="sidepanel-content-wrapper">
+					<div class="sidepanel-content">
+                   <!--     <div class="sidepanel-tab-content" data-tab-content="tab-1">
+                            <h4>Indice - Parco della Favorita | 2024</h4>
+                            <p><a href="../cartografia_storica.html#15/38.1667/13.3432" target="_parent" Title="Cartografia storica" >01. Cartografia storica</a><br>
+                            <a href="../carta_del_suolo.html#15/38.1667/13.3432" Title="Cartografia storica" target="_parent">02. Carta del suolo</a><br>
+							<a href="#" Title="bla bla bla" target="_parent">03. xxx xxx xxx </a><br>
+							<a href="#" Title="bla bla bla" target="_parent">04. xxx xxx xxx </a><br>
+							<a href="#" Title="bla bla bla" target="_parent">05. xxx xxx xxx </a><br>
+							<a href="#" Title="bla bla bla" target="_parent">06. xxx xxx xxx </a><br>
+							<a href="#" Title="bla bla bla" target="_parent">07. xxx xxx xxx </a><br>
+							<a href="#" Title="bla bla bla" target="_parent">08. xxx xxx xxx </a><br>
+							<a href="#" Title="bla bla bla" target="_parent">09. xxx xxx xxx </a><br>
+							<a href="../incidenti_stra.html" Title="Analisi degli Incidenti stradali nel Parco della Favorita" target="_parent">10. Analisi degli Incidenti stradali nel Parco della Favorita </a><br>
+							</p>
+						</div> -->
+						<div class="sidepanel-tab-content" data-tab-content="tab-dataviz">
+							<div id="dv-container">
+								<div id="dv-header">
+									<span id="dv-title">MACRO AREE</span>
+									<span id="dv-zoom-info">zoom 13–16</span>
+								</div>
+								<div id="dv-donut-wrap">
+									<canvas id="dv-chart"></canvas>
+									<div id="dv-center-text">
+										<div id="dv-center-value">–</div>
+										<div id="dv-center-label">ha totali</div>
+									</div>
+								</div>
+								<div id="dv-legend"></div>
+								<div id="dv-rank-section">
+									<div class="dv-rank-title">TOP SUPERFICI</div>
+									<div id="dv-rank-list"></div>
+								</div>
+								<div id="dv-analysis">
+									<div class="dv-analysis-title">COSA CI DICONO I DATI</div>
+									<div class="dv-analysis-body">
+										<p>Il Parco della Favorita ha un'anima verde e selvaggia. Più della <strong>metà della sua superficie , oltre 142 ettari , è bosco</strong>: macchia mediterranea, gariga e prateria che si estendono lungo le pendici di Monte Pellegrino. È un dato che sorprende chi pensa al parco solo come a un giardino cittadino.</p>
+										<p>Il secondo grande protagonista è il <strong>Parco multifunzionale</strong>, con <strong>quasi 36 ettari</strong>. Comprende l'ex area Nomadi e le zone adiacenti, oggi in parte abbandonate: proprio qui lo studio di fattibilità immagina la trasformazione più radicale, con nuovi spazi inclusivi, un biolago e la valorizzazione degli agrumeti.</p>
+										<p>I <strong>giardini ornamentali</strong> coprono <strong>circa 31 ettari</strong> , l'11,9% del totale. Ospitano i tesori storici del parco: i giardini della Casina Cinese, di Villa Niscemi e altri impianti di pregio che meritano un restauro attento.</p>
+										<p>Le <strong>aree agricole</strong> occupano <strong>quasi 25 ettari</strong>. Non sono semplici spazi aperti: rappresentano una tradizione plurisecolare di coltivazione nella Conca d'Oro. Mantenerle in vita significa preservare un paesaggio culturale, non solo produttivo.</p>
+										<p>Tutto il costruito , edifici storici, strutture da riconvertire e quelle da demolire , occupa meno del <strong>2% della superficie totale</strong>. Pochi numeri, ma ad alta densità di storia: ogni edificio racconta qualcosa del passato borbonico del parco. Quasi tutti necessitano di interventi urgenti.</p>
+										<p>Gli <strong>impianti sportivi e i viali</strong> pesano ciascuno per il 4,2%: una quota contenuta, ma strategica per la fruizione quotidiana. Più piste ciclabili e percorsi pedonali potrebbero cambiare radicalmente il modo in cui i palermitani vivono il parco.</p>
+										<p>In sintesi: la Favorita è <strong>prevalentemente natura</strong>. Il piano non vuole stravolgerla , vuole restituirle cura, accessibilità e un futuro.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div  class="sidepanel-tab-content" data-tab-content="tab-2">
+							<h4>Studio di fattibilità per la rigenerazione funzionale</h4> 
+							<p> Il Parco della Favorita, un'area verde di eccezionale valore storico, paesaggistico e naturalistico nella città di Palermo, è oggetto di un ambizioso piano di rigenerazione funzionale. Questo documento di sintesi illustra le linee guida dello Studio di fattibilità, elaborato con l'obiettivo di restituire alla città un parco riqualificato, fruibile e capace di offrire servizi ecosistemici e multifunzionali. <br><br>
+                             
+                            <a href="../../parco/relaz_sint/studio_fattibilita.pdf" title="Studio di Fattibilità |  Scarica la tavola in formato pdf " target="_blank"> <img src="../../parco/relaz_sint/studio_fattibilita.jpg" class="clip_resize" title="Studio di Fattibilità | Scarica la tavola in formato pdf" border="0" /></a><br><br>  
+							<h4>Il Parco della Favorita: un mosaico paesaggistico da preservare</h4><br>
+                            Nato come parco di delizie, campo di produzione agraria e riserva di caccia tra la fine del XVIII e l'inizio del XIX secolo, il Parco della Favorita si estende su una vasta area della Conca d'Oro, la fertile pianura che circonda Palermo.<br>
+							La sua storia plurisecolare ha plasmato un paesaggio unico, un mosaico di giardini storici, monumenti, aree naturali e sistemi agrari tradizionali. Il parco è riconosciuto come zona B della Riserva Naturale Orientata "Monte Pellegrino" e ospita una ricca biodiversità.<br><br>
+														
+                            <a href="../../parco/relaz_sint/studio_fattibilita.pdf" title="Studio di Fattibilità |  Scarica la tavola in formato pdf " target="_blank"> <img src="../../parco/relaz_sint/macro_aree.jpg" class="clip_resize" title="Studio di Fattibilità | Scarica la tavola in formato pdf" border="0" /></a><br><br> 
+							<h4>Obiettivi dello Studio di fattibilità</h4><br>
+							Lo Studio di fattibilità mira a potenziare l'uso del Parco, salvaguardare e recuperare i valori storici e ambientali, tutelare l'agricoltura e il suo paesaggio, creare opportunità di formazione ed educazione ambientale, offrire opportunità per il gioco, lo sport e le attività culturali, stabilire un legame più forte con la comunità cittadina e contribuire ad accrescere l'attrattività di Palermo. <br><br>
+							
+				<h4>Linee guida del Piano</h4><br>							
+					LO Studio di fattibilità si articola in diverse aree strategiche di intervento, ognuna delle quali affronta specifiche problematiche e propone soluzioni innovative per la riqualificazione del Parco.<br>	<br>	
+							<ol>
+  <li>
+    <p><strong>Giardini storici</strong> I giardini storici del Parco, tra cui quelli della Casina Cinese, di Villa Niscemi e il giardino all'italiana che collega Piazza Niscemi alla Casina Cinese, costituiscono un patrimonio di inestimabile valore. Il piano prevede il <strong>restauro filologico di questi giardini</strong>, il recupero dei manufatti lapidei e degli ingrottati, la riconnessione tra la Casina Cinese e il Museo Etnografico Pitrè, e il ripristino delle strutture della Città dei Ragazzi. Questi interventi permetteranno di creare un itinerario che ripercorre la storia dei giardini europei, offrendo ai visitatori un'esperienza culturale unica.</p>
+  </li>
+  <li>
+    <p><strong>Manufatti Borbonici</strong> Il Parco è ricco di manufatti storici, testimonianza del suo passato di tenuta reale. Il piano prevede il <strong>recupero dei magazzini borbonici adiacenti all'ulivo millenario</strong>, con la creazione di servizi funzionali al Parco come aule didattiche, biblioteca, punto di ristoro e servizi igienici. Si propone inoltre il <strong>recupero della "Via dell'acqua"</strong>, con la riattivazione dei manufatti idraulici storici e la valorizzazione del sistema di irrigazione tradizionale.</p>
+  </li>
+  <li>
+    <p><strong>Aree per attività sportive e ricreative</strong> Lo Studio di fattibilità riconosce l'importanza delle attività sportive e ricreative all'interno del Parco. Si prevede il <strong>mantenimento delle attività equestri</strong>, con l'ampliamento a funzioni didattiche e di educazione ambientale, la <strong>riqualificazione dei Campi Malvagno</strong> per attività sportive, e la creazione di nuovi accessi per facilitare la fruizione di queste aree. Si propone inoltre la creazione di un "<strong>Parco nel Parco" nell'ex area Nomadi</strong>, con spazi inclusivi, un biolago e la valorizzazione degli agrumeti abbandonati.</p>
+  </li>
+  <li>
+    <p><strong>Tutela ambientale e rinaturalizzazione</strong> La tutela ambientale è un elemento centrale dello Studio di fattibilità. Si prevede la <strong>tutela e valorizzazione degli alberi monumentali</strong> presenti nel Parco, il <strong>recupero delle siepi e delle alberate</strong> con la rimozione di specie esotiche invasive, l'adozione di piani di gestione per le aree di macchia-foresta mediterranea, garantendo la conservazione e la prevenzione degli incendi, e la rinaturalizzazione delle aree incolte e degradate.</p>
+  </li>
+  <li>
+    <p><strong>Infrastrutture e mobilità sostenibile</strong> Il piano prevede il <strong>recupero e la realizzazione delle infrastrutture fognarie, idriche, elettriche, antincendio e di videosorveglianza</strong>. Si promuoverà l'uso delle energie rinnovabili e si interverrà sulla <strong>viabilità interna ed esterna</strong>, limitando il traffico veicolare privato e incentivando la mobilità sostenibile con piste ciclabili, navette elettriche e percorsi pedonali.</p>
+  </li>
+  <li>
+    <p><strong>Gestione del parco</strong> Lo Studio di fattibilità propone l'individuazione di un organismo di gestione del Parco, che coinvolga enti pubblici, privati e associazioni. La gestione si concentrerà su:</p>
+    <ul>
+      <li>Accoglienza e promozione</li>
+      <li>Salvaguardia e sicurezza</li>
+      <li>Relazioni con la comunità urbana</li>
+      <li>Mobilità interna</li>
+      <li>Pulizia e manutenzione</li>
+      <li>Valorizzazione del patrimonio agricolo</li>
+      <li>Patrimonio naturalistico e conservazione della biodiversità</li>
+      <li>Recupero e valorizzazione del patrimonio immobiliare e dei giardini</li>
+    </ul>
+  </li>
+</ol>							
+							<h4>Conclusioni</h4><br>
+							Lo Studio di fattibilità per la rigenerazione funzionale del Parco della Favorita rappresenta un progetto ambizioso e lungimirante, che mira a restituire alla città di Palermo un patrimonio di inestimabile valore. <br>
+							La realizzazione del piano richiederà un impegno congiunto da parte di diverse entità, ma i benefici che ne deriveranno saranno molteplici: un parco più bello, fruibile e sicuro, un'offerta turistica arricchita, un ambiente più sano e una comunità più coinvolta nella vita del proprio territorio.
+														</p>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div class="sidepanel-toggle-container">
+				<button class="sidepanel-toggle-button" type="button" aria-label="toggle side panel" title="Attiva il pannello dei filtri"></button>
+			</div>		</div>			</div>
+
+		<!-- TOOLBAR MAPPA -->
+		<div id="map-toolbar">
+			<button class="tb-btn" id="tb-home" title="Vista iniziale (zoom 13)"><i class="fas fa-home"></i></button>
+			<button class="tb-btn" id="tb-fullscreen" title="Schermo intero"><i class="fas fa-expand" id="tb-fs-icon"></i></button>
+			<button class="tb-btn" id="tb-measure" title="Strumento misure"><i class="fas fa-ruler"></i></button>
+			<div class="tb-sep"></div>
+			<button class="tb-btn" id="tb-google" title="Google Hybrid Satellite" style="font-size:18px;">
+				🛰️
+			</button>
+			<button class="tb-btn tb-btn-map" id="tb-basemap" title="Basi cartografiche OSM / CTR">
+				<i class="fas fa-map"></i>
+			</button>
+			<button class="tb-btn" id="tb-print" title="Stampa / Esporta PDF"><i class="fas fa-print"></i></button>
+			<div class="tb-sep"></div>
+			<span class="tb-zoom-label">13</span>
+			<div id="tb-zoom-slider"></div>
+			<span class="tb-zoom-label">18</span>
+			<div id="tb-zoom-badge">13</div>
+			<!-- basemap panel (popup verso il basso) -->
+			<div id="tb-basemap-panel">
+				<strong style="font-size:12px;color:#888;display:block;margin-bottom:6px;">
+					<i class="fas fa-map" style="margin-right:5px;"></i>Basi cartografiche
+				</strong>
+				<label><input type="checkbox" id="chk-osm" checked> OSM Standard</label>
+				<label><input type="checkbox" id="chk-ctr10k" checked> <i class="fas fa-drafting-compass" style="margin-right:4px;color:#888;"></i>Palermo CTR 10K (zoom 13-15)</label>
+				<label><input type="checkbox" id="chk-ctr2k" checked> <i class="fas fa-drafting-compass" style="margin-right:4px;color:#888;"></i>Palermo CTC 2K (zoom 16-18)</label>
+			</div>
+		</div>
+
+
+		<!-- Scripts -->
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/tailDT.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/wNumb.js"></script>
+		<!-- script credits -->
+		<script type="text/javascript" src="js/leaflet-control-credits.js"></script>
+		<script type="text/javascript" src="js/Leaflet.GraphicScale.min.js"></script>
+		  <!-- script automatico mobile/desktop --> 
+		<script> if (screen && screen.width < 737) { document.write('<script type="text/javascript" src="js/Leaflet_GraphicScale_min_mobile.js"><\/script>'); } </script>
+		<script> if (screen && screen.width > 738) { document.write('<script type="text/javascript" src="js/Leaflet_GraphicScale_min.js"><\/script>'); } </script> 
+		  <script src="js/Leaflet.BigImage.js"></script>
+		<script src="js/LControlMousePosition.js"></script>
+		<script src="js/leaflet.zoomhome.min.js"></script>
+		<script type="text/javascript" src="js/leaflet-history.js"></script>
+		<script src="js/leaflet.fullscreen.js"></script>
+		<script src="js/leaflet-sidepanel.js"></script>
+		<script src="js/leaflet.scalefactor.js"></script>
+		 <!-- script dati mappa -->
+		 
+		<script src="data/area_buco_1.js"></script>
+		<script src="data/studio_fatt_1.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+		<script src="js/studio.js"></script>
+
+    </body>
+</html>
