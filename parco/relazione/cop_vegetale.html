@@ -300,6 +300,33 @@
 
 
   <main id="main-content">
+    <div class="container d-flex justify-content-end it-page-actions my-2">
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle d-inline-flex align-items-center gap-2 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-share"></use></svg>
+          Condividi
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item share-facebook" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg>Facebook</a></li>
+          <li><a class="dropdown-item share-twitter" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg>Twitter</a></li>
+          <li><a class="dropdown-item share-linkedin" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-linkedin"></use></svg>LinkedIn</a></li>
+          <li><a class="dropdown-item share-whatsapp" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-whatsapp"></use></svg>WhatsApp</a></li>
+          <li><a class="dropdown-item share-mail" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-mail"></use></svg>Email</a></li>
+          <li><button type="button" class="dropdown-item share-copy w-100"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-link"></use></svg><span class="share-copy-label">Copia link</span></button></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle d-inline-flex align-items-center gap-2 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-more-items"></use></svg>
+          Vedi azioni
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button type="button" class="dropdown-item page-print w-100"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-print"></use></svg>Stampa</button></li>
+          <li><button type="button" class="dropdown-item page-listen w-100"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-hearing"></use></svg><span class="page-listen-label">Ascolta</span></button></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container py-4 piano-content">
 <h1 id="tipologie-di-copertura-vegetale">Tipologie di copertura vegetale</h1>
 <p>Il Parco della Favorita esprime aspetti di vegetazione antropica di tipo artificiale (coltivazioni, impianti ornamentali, rimboschimenti), spontaneo (sinantropico) e naturale.<br> Sin dal suo nascere, è stato sottoposto a interventi, con l'impianto di specie ornamentali, boschetti e con la creazione di piantagioni per la coltivazione delle più varie specie, alcune delle quali - soprattutto gli agrumi e in particolare i mandarini- occupano ancora oggi vaste superfici.</p>
@@ -484,5 +511,6 @@
       GLightbox({ selector: '.glightbox', touchNavigation: true, loop: false });
     });
   </script>
+  <script src="../../assets/js/share.js"></script>
 </body>
 </html>

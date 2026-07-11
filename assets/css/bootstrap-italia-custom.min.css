@@ -28889,3 +28889,26 @@ body > footer.it-footer {
     flex-basis: 100%;
   }
 }
+
+.it-page-actions {
+  gap: 1.5rem;
+}
+.it-page-actions .dropdown-toggle {
+  color: #506b4f;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.it-page-actions .dropdown-toggle::after {
+  display: none;
+}
+.it-page-actions .dropdown-toggle .icon {
+  fill: #506b4f;
+}
+.it-page-actions .dropdown-menu {
+  min-width: 12rem;
+}
+.it-page-actions .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

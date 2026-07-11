@@ -300,6 +300,33 @@
 
 
   <main id="main-content">
+    <div class="container d-flex justify-content-end it-page-actions my-2">
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle d-inline-flex align-items-center gap-2 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-share"></use></svg>
+          Condividi
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item share-facebook" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg>Facebook</a></li>
+          <li><a class="dropdown-item share-twitter" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg>Twitter</a></li>
+          <li><a class="dropdown-item share-linkedin" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-linkedin"></use></svg>LinkedIn</a></li>
+          <li><a class="dropdown-item share-whatsapp" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-whatsapp"></use></svg>WhatsApp</a></li>
+          <li><a class="dropdown-item share-mail" href="#"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-mail"></use></svg>Email</a></li>
+          <li><button type="button" class="dropdown-item share-copy w-100"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-link"></use></svg><span class="share-copy-label">Copia link</span></button></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle d-inline-flex align-items-center gap-2 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-more-items"></use></svg>
+          Vedi azioni
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button type="button" class="dropdown-item page-print w-100"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-print"></use></svg>Stampa</button></li>
+          <li><button type="button" class="dropdown-item page-listen w-100"><svg class="icon icon-sm"><use href="../../assets/bootstrap-italia/svg/sprites.svg#it-hearing"></use></svg><span class="page-listen-label">Ascolta</span></button></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container py-4 piano-content">
 <h1 id="rigenerazione-funzionale-dellarea-verde-ed-attrezzata-del-parco-della-favorita">Rigenerazione funzionale dell’area verde ed attrezzata del Parco della Favorita</h1>
 <p><a class="glightbox" href="img/sintesi.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="sintesi" src="img/sintesi.jpg" title="Studio di fattibilità valorizzazione Parco della Favorita | Le aree bersaglio strategiche, le zone di intervento principali" /></a></p>
@@ -662,5 +689,6 @@ Obiettivo generale è la produzione di servizi ecosistemici, di multifunzionalit
       GLightbox({ selector: '.glightbox', touchNavigation: true, loop: false });
     });
   </script>
+  <script src="../../assets/js/share.js"></script>
 </body>
 </html>

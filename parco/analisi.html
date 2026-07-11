@@ -296,6 +296,33 @@
 
 
   <main id="main-content">
+    <div class="container d-flex justify-content-end it-page-actions my-2">
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle d-inline-flex align-items-center gap-2 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-share"></use></svg>
+          Condividi
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item share-facebook" href="#"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-facebook"></use></svg>Facebook</a></li>
+          <li><a class="dropdown-item share-twitter" href="#"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-twitter"></use></svg>Twitter</a></li>
+          <li><a class="dropdown-item share-linkedin" href="#"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-linkedin"></use></svg>LinkedIn</a></li>
+          <li><a class="dropdown-item share-whatsapp" href="#"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-whatsapp"></use></svg>WhatsApp</a></li>
+          <li><a class="dropdown-item share-mail" href="#"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-mail"></use></svg>Email</a></li>
+          <li><button type="button" class="dropdown-item share-copy w-100"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-link"></use></svg><span class="share-copy-label">Copia link</span></button></li>
+        </ul>
+      </div>
+      <div class="dropdown">
+        <a href="#" class="dropdown-toggle d-inline-flex align-items-center gap-2 text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false" role="button">
+          <svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-more-items"></use></svg>
+          Vedi azioni
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><button type="button" class="dropdown-item page-print w-100"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-print"></use></svg>Stampa</button></li>
+          <li><button type="button" class="dropdown-item page-listen w-100"><svg class="icon icon-sm"><use href="../assets/bootstrap-italia/svg/sprites.svg#it-hearing"></use></svg><span class="page-listen-label">Ascolta</span></button></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container py-4 piano-content">
 <h1 id="elaborati-di-analisi">Elaborati di analisi</h1>
 <p>Il Parco della Favorita è la più pregiata tra le aree che rimangono della Conca d'oro, la pianura aperta al mare Tirreno che circonda Palermo.<br> Residua, esemplare e preziosa testimonianza della storia della città e del suo territorio, ma anche straordinaria occasione per il futuro, è di eccezionale dimensione (220 ha) e localizzazione.<br> Ai suoi valori naturalistici e paesaggistici si aggiungono quelli che derivano dall'essere, in sé, un grande parco storico con la presenza al suo interno di giardini, monumenti, aree di valore naturalistico e di sistemi agrari tradizionali.<br> Una tra le più evidenti particolarità che lo distingue tra i parchi europei risiede proprio nel complesso mosaico paesaggistico che deriva dalla sua storia e dalla sua natura . <br><br>
@@ -1306,5 +1333,6 @@ La Favorita è nata, tra la fine del XVIII secolo e gli inizi del successivo, co
       GLightbox({ selector: '.glightbox', touchNavigation: true, loop: false });
     });
   </script>
+  <script src="../assets/js/share.js"></script>
 </body>
 </html>
