@@ -7864,17 +7864,18 @@ p.it-card-text a:focus:not([data-focus-mouse="true"], .btn) {
   font-size: 0.875rem;
 }
 .it-header-center-wrapper .it-header-center-content-wrapper .it-search-wrapper a.rounded-icon {
-  width: 24px;
-  height: 24px;
-  display: block;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
+  background-color: #fff;
 }
 .it-header-center-wrapper .it-header-center-content-wrapper .it-search-wrapper a.rounded-icon svg {
-  fill: #fff;
-  width: 24px;
-  height: 24px;
+  fill: #465843;
+  width: 20px;
+  height: 20px;
 }
 @media (min-width: 768px) {
   .it-header-center-wrapper .it-header-center-content-wrapper .it-search-wrapper {
@@ -28574,6 +28575,8 @@ select.just-validate-success-field {
 }
 .it-footer-small-prints {
   background-color: rgb(76.364, 102, 75.48);
+  height: 65px;
+  overflow: hidden;
 }
 .it-footer-small-prints ul.it-footer-small-prints-list {
   padding: 1.5rem 1rem;
@@ -28617,9 +28620,11 @@ select.just-validate-success-field {
 .it-header-slim-wrapper {
   background-color: #112d2a;
 }
-.it-header-center-wrapper,
-.it-header-navbar-wrapper {
+.it-header-center-wrapper {
   background-color: #576b51;
+}
+.it-header-navbar-wrapper {
+  background-color: #465843;
 }
 /* Header a 3 righe impilate (slim/center/navbar): il framework posiziona
    .it-header-navbar-wrapper in absolute e si affida a header.js per
@@ -28670,35 +28675,28 @@ select.just-validate-success-field {
 }
 @media (min-width: 992px) {
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav {
-    gap: 4px;
+    gap: 8px;
   }
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li a.nav-link,
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li button.nav-link {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 0.875rem;
+    font-weight: 600;
     white-space: nowrap;
   }
-  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item button.btn.dropdown-toggle {
-    padding-left: 6px;
-    padding-right: 6px;
-    min-width: 26px;
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li a.nav-link {
+    padding-right: 2px;
   }
-  .it-header-navbar-wrapper
-    nav
-    .navbar-collapsable
-    .menu-wrapper
-    .navbar-nav
-    > li:first-child
-    a.nav-link,
-  .it-header-navbar-wrapper
-    nav
-    .navbar-collapsable
-    .menu-wrapper
-    .navbar-nav
-    > li:first-child
-    button.nav-link {
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item button.btn.dropdown-toggle {
     padding-left: 0;
+    padding-right: 10px;
+    min-width: 20px;
+  }
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item button.btn.dropdown-toggle svg.icon {
+    width: 14px;
+    height: 14px;
+    margin: 0;
   }
 }
 /* Tra 992 e 1200px lo spazio è stretto per 8 voci: si torna a un
