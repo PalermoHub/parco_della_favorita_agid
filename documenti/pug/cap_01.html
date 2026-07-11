@@ -17,6 +17,12 @@
   <title>Direttive Generali PUG - 1. Il piano urbanistico generale verso &quot;Palermo +&quot; - Studio di fattibilità e valorizzazione Parco della Favorita</title>
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
+  <style>
+    #pug-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #pug-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #pug-toc .list-item:hover { color: #506b4f; }
+    #pug-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -331,7 +337,20 @@
     </div>
 
     <div class="container py-4">
-<h1>Direttive Generali PUG - 1. Il piano urbanistico generale verso &quot;Palermo +</h1>
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="pug-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#direttive-generali-pug---1-il-piano-urbanistico-generale-verso-quotpalermo"><span>Direttive Generali PUG - 1. Il piano urbanistico generale verso &quot;Palermo +</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#11-palermo-una-metropoli-europea-e-mediterranea"><span>1.1. Palermo: una metropoli europea e mediterranea</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 pug-content" id="pug-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#pug-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
+
+<h1 id="direttive-generali-pug---1-il-piano-urbanistico-generale-verso-quotpalermo">Direttive Generali PUG - 1. Il piano urbanistico generale verso &quot;Palermo +</h1>
 <style>
 img.resized60 { display: none;}
 </style>
@@ -373,7 +392,7 @@ metropolitana in relazione alla nuova forma amministrativa di capoluogo della Ci
 Metropolitana, e devono perseguire una logica di decentramento e di responsabilizzazione
 delle Circoscrizioni e di delocalizzazione dei servizi e degli attrattori in un’ottica policentrica e
 sovracomunale.</p>
-<h3>1.1. Palermo: una metropoli europea e mediterranea</h3>
+<h3 id="11-palermo-una-metropoli-europea-e-mediterranea">1.1. Palermo: una metropoli europea e mediterranea</h3>
 <p>Palermo deve tornare a giocare un ruolo attivo e prospettivo come città dalla potente, antica e
 stratificata identità europea, come porta del Mediterraneo e dell’Europa, come nodo
 dell’armatura metropolitana nazionale, come capitale regionale, come motore economico delle
@@ -526,7 +545,10 @@ regionale, nazionale e internazionale e poi attraverso un adeguato piano urbanis
 supporti la visione, che agevoli il contributo delle imprese, che incrementi l’attrattività degli
 investimenti, che garantisca la sicurezza e la qualità dei luoghi, che rafforzi tutti i diritti di
 cittadinanza.</p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -651,5 +673,29 @@ cittadinanza.</p>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="../../assets/js/share.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('pug-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
 </body>
 </html>

@@ -17,6 +17,12 @@
   <title>Direttive Generali per la formazione del Piano Urbanistico Generale (P.U.G.) - Studio di fattibilità e valorizzazione Parco della Favorita</title>
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
+  <style>
+    #pug-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #pug-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #pug-toc .list-item:hover { color: #506b4f; }
+    #pug-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -327,7 +333,30 @@
     </div>
 
     <div class="container py-4">
-<h1>Direttive Generali per la formazione del Piano Urbanistico Generale (P.U.G.)</h1>
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="pug-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#direttive-generali-per-la-formazione-del-piano-urbanistico-generale-pug"><span>Direttive Generali per la formazione del Piano Urbanistico Generale (P.U.G.)</span></a></li>
+                <li><a class="list-item small py-2" href="#capitoli"><span>Capitoli</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_01.html"><span>1. Il piano urbanistico generale verso "Palermo +"</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_02.html"><span>2. Le ragioni e le opportunità di un piano urbanistico generale</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_03.html"><span>3. Agenda "Palermo +" la visione e gli assi di sviluppo</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_04.html"><span>4. Gli ambiti strategici generali del PUG</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_05.html"><span>5. Piano urbanistico generale "Palermo +" direttive generali per le azioni e i progetti</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_06.html"><span>6. Il processo di formazione del PUG</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_07.html"><span>7. La sostenibilità delle previsioni di sviluppo</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_08.html"><span>8. La pianificazione attuativa</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_09.html"><span>9. La partecipazione alla formazione del piano</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="cap_10.html"><span>10. Ufficio progettazione e gestione del PUG e delle fasi attuative</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 pug-content" id="pug-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#pug-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
+
+<h1 id="direttive-generali-per-la-formazione-del-piano-urbanistico-generale-pug">Direttive Generali per la formazione del Piano Urbanistico Generale (P.U.G.)</h1>
 <p>Il Piano Urbanistico Generale (PUG) di Palermo mira a rigenerare il tessuto urbano attraverso diversi approcci e strategie, con un focus sulla riqualificazione di aree degradate, la promozione della sostenibilità e il miglioramento della qualità della vita.
 Ecco i principali modi in cui il PUG interviene per la rigenerazione urbana:</p>
 <ul>
@@ -346,7 +375,7 @@ Ecco i principali modi in cui il PUG interviene per la rigenerazione urbana:</p>
 </ul>
 <p>Il PUG promuove la partecipazione dei cittadini e la concertazione con gli enti pubblici e privati per garantire un'efficace governance dello sviluppo urbano. L'obiettivo finale è quello di trasformare Palermo in una metropoli più funzionale, competitiva, attenta all'ambiente e alla qualità della vita.</p>
 <hr>
-<h2>Capitoli</h2>
+<h2 id="capitoli">Capitoli</h2>
 <ol class="list-group list-group-numbered">
   <li class="list-group-item"><a href="../../documenti/pug/cap_01.html">Il piano urbanistico generale verso "Palermo +"</a></li>
   <li class="list-group-item"><a href="../../documenti/pug/cap_02.html">Le ragioni e le opportunità di un piano urbanistico generale</a></li>
@@ -359,7 +388,10 @@ Ecco i principali modi in cui il PUG interviene per la rigenerazione urbana:</p>
   <li class="list-group-item"><a href="../../documenti/pug/cap_09.html">La partecipazione alla formazione del piano</a></li>
   <li class="list-group-item"><a href="../../documenti/pug/cap_10.html">Ufficio progettazione e gestione del PUG e delle fasi attuative</a></li>
 </ol>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -484,5 +516,29 @@ Ecco i principali modi in cui il PUG interviene per la rigenerazione urbana:</p>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="../../assets/js/share.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('pug-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
 </body>
 </html>

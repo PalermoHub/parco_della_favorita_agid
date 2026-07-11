@@ -18,6 +18,12 @@
   <link rel="icon" href="../assets/img/favicon.png">
   <link rel="stylesheet" href="../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -323,7 +329,23 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-1 ps-3" href="#inquadramento-cartografico"><span>Inquadramento cartografico</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#cartografia-storica-georeferenziata"><span>Cartografia storica georeferenziata</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#strumenti-urbanistici-vigenti"><span>Strumenti Urbanistici Vigenti</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#temi-vari-geologico-habitat-natura-urbano"><span>Temi vari - Geologico, Habitat, Natura, Urbano</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#stato-di-fatto"><span>Stato di fatto</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#temi-vari"><span>Temi vari</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="elaborati-di-analisi">Elaborati di analisi</h1>
 <p>Il Parco della Favorita è la più pregiata tra le aree che rimangono della Conca d'oro, la pianura aperta al mare Tirreno che circonda Palermo.<br> Residua, esemplare e preziosa testimonianza della storia della città e del suo territorio, ma anche straordinaria occasione per il futuro, è di eccezionale dimensione (220 ha) e localizzazione.<br> Ai suoi valori naturalistici e paesaggistici si aggiungono quelli che derivano dall'essere, in sé, un grande parco storico con la presenza al suo interno di giardini, monumenti, aree di valore naturalistico e di sistemi agrari tradizionali.<br> Una tra le più evidenti particolarità che lo distingue tra i parchi europei risiede proprio nel complesso mosaico paesaggistico che deriva dalla sua storia e dalla sua natura . <br><br>
 La Favorita è nata, tra la fine del XVIII secolo e gli inizi del successivo, come parco di delizie, campo di produzione e sperimentazione agraria, oasi naturale per attività venatorie.<br> Nel 1816, Gaspare Palermo, nella sua "Guida istruttiva per Palermo e i suoi dintorni", la descrive come uno spazio che si configura, come è ancora oggi, per valori paesaggistici oltre che ambientali e agrari: "le… terre sono distribuite in campi da seminarvi grano, e qualunque sorta di civaie, in praterie, giardini, fruttiere, boschetti, oliveti, vigneti ed orti.<br> Lunghi e deliziosi viali, e stradoni fiancheggiati da ombrosi alberi silvestri, e fruttiferi ...piazze con alberi e sedili per riposarvisi ed insieme godere di quella amena frescura". <br><br>Tale è fortunatamente rimasta nella dinamicità propria dei paesaggi culturali (la biodiversità non è più in funzione venatoria ma di conservazione ed equilibrio ecosistemico) e tale deve rimanere in piena conformità con la richiesta di multifunzionalità che oggi viene assegnata ai grandi parchi urbani.<br> Giardini e aree di interesse naturalistico, monumenti architettonici di eccezionale valore, devono continuare ad integrarsi funzionalmente e percettivamente con l'ultimo dei paesaggi palermitani (quello degli agrumi), a ricordare e proporre funzioni in grado non solo di produrre benefici economici e ambientali, salvaguardando la biodiversità, ma anche occasioni di arricchimento culturale e benessere fisico e spirituale, anche attraverso attività sportive. </p>
@@ -1203,7 +1225,10 @@ La Favorita è nata, tra la fine del XVIII secolo e gli inizi del successivo, co
 </div>
 
 </div>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -1327,6 +1352,33 @@ La Favorita è nata, tra la fine del XVIII secolo e gli inizi del successivo, co
   </a>
 
   <script src="../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

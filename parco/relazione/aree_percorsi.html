@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -327,7 +333,30 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#giardini-storici"><span>Giardini storici</span></a></li>
+                <li><a class="list-item small py-2" href="#i-magazzini-borbonici-adiacenti-allulivo-millenario"><span>I magazzini borbonici adiacenti all'ulivo millenario</span></a></li>
+                <li><a class="list-item small py-2" href="#la-via-dellacqua-e-manufatti-borbonici-minori"><span>La Via dell'acqua e manufatti borbonici "minori"</span></a></li>
+                <li><a class="list-item small py-2" href="#la-pipiniera"><span>La Pipiniera</span></a></li>
+                <li><a class="list-item small py-2" href="#i-magazzini-del-sommacco-e-i-torriglioni"><span>I Magazzini del Sommacco e i Torriglioni.</span></a></li>
+                <li><a class="list-item small py-2" href="#grotta-niscemi"><span>Grotta Niscemi</span></a></li>
+                <li><a class="list-item small py-2" href="#area-ex-colonia-comunale"><span>Area ex Colonia Comunale</span></a></li>
+                <li><a class="list-item small py-2" href="#struttura-equestre"><span>Struttura equestre</span></a></li>
+                <li><a class="list-item small py-2" href="#area-cisterne-nervi-e-aree-di-archeologia-militare"><span>Area cisterne Nervi e aree di archeologia militare</span></a></li>
+                <li><a class="list-item small py-2" href="#ex-parco-delle-rimembranze-boschetto-di-diana"><span>Ex parco delle Rimembranze, Boschetto di Diana.</span></a></li>
+                <li><a class="list-item small py-2" href="#vivaio-comunale"><span>Vivaio comunale</span></a></li>
+                <li><a class="list-item small py-2" href="#campi-malvagno-e-aree-per-attivita-sportive"><span>Campi Malvagno e aree per attività sportive</span></a></li>
+                <li><a class="list-item small py-2" href="#parco-nel-parco-ex-area-nomadi-e-aree-adiacenti"><span>"Parco nel Parco": ex area Nomadi e aree adiacenti</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="aree-e-percorsi-strategici-di-intervento">Aree e percorsi strategici di intervento</h1>
 <h2 id="giardini-storici">Giardini storici</h2>
 <p>I giardini ornamentali all'italiana (quello che da Piazza Niscemi si apre con i due "padiglioni dei reali cacciatori" conduce alla Casina Cinese, noto come Villa del Carabiniere), alla francese (con il <em>parterre de broderie</em> e un <em>berceau</em>), i giardini all'inglese (della Città dei Ragazzi e di Villa Niscemi) costituiscono una occasione eccezionale per un itinerario che percorra la storia dei giardini europei.<br> Vengono identificati nel vigente Piano di Utilizzazione come A1 (<em>Giardini storici in cui sono ammessi esclusivamente interventi di manutenzione e di ripristino filologico</em>). <br>Da Piazza Niscemi attraverso essi e quindi lungo una pineta, un boschetto, un agrumeto (inteso come giardino "mediterraneo"), l'olivo monumentale residuo del paesaggio agrario originale è possibile attraversare secoli di cultura paesaggistica.<br> Il recupero dei giardini e dei manufatti lapidei e degli ingrottati e delle cave di calcarenite (<em>perriere</em>), il collegamento attraverso la Città dei Ragazzi e il cancello prossimo al Museo Etnografico Pitrè con la Favorita consentirebbero di percorrere le tappe più importanti del paesaggio culturale mediterraneo lungo collegamenti e itinerari tra i giardini della Casina Cinese e di Città dei Ragazzi e da essi, attraverso il viale di Pomona, al Parco.<br> La Casina Cinese da cui si dipartirebbe l'itinerario è opera architettonica di straordinario valore e quindi luogo di attrazione.<br> Progettata da Giuseppe Venanzio Marvuglia è considerata "l'esemplare più raffinato di cineseria italiana del tardo Settecento... sintesi riuscita di cineseria e classicismo".</p>
@@ -401,7 +430,10 @@
 <p>Per una mobilità sostenibile, va prevista la realizzazione di stalli protetti, bici box per biciclette e punti di noleggio.</p>
 <p>Elemento fondamentale dell'intervento è la disponibilità e il recupero di Case Rocca che si prevede, pur mantenendo le funzioni di struttura legata all'emungimento dell'acqua e alla valorizzazione storica (Real Vaccheria e caseificio), formi un hub del Parco destinato a centro accoglienza, formazione/didattica, uffici, punti di ristoro e bookshop.</p>
 <p><a class="glightbox" href="img/Immagine15.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="sentieri" src="img/Immagine15.jpg" /></a></p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -525,6 +557,33 @@
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

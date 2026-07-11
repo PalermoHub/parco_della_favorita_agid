@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -327,7 +333,16 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list"></ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="sentieristica">Sentieristica</h1>
 <p>La Real Tenuta è facilmente fruibile grazie alla presenza di numerosi sentieri che la attraversano alla scoperta delle peculiarità naturalistiche, geologiche, paesaggistiche, archeologiche, monumentali e storico militare (Sentiero "Musto - Scuderie Reali", Sentiero "Pedemontano - Grotta Niscemi", Sentiero "Bosco Niscemi, Sentiero "Ercole", Sentiero "Valle del Porco-Gorgo di S. Rosalia).</p>
 <p>La rete sentieristica del Parco ha un uso multifunzionale in quanto percorsa da escursionisti, sportivi (mountain bike, podisti, nordic walking, ecc.), visite guidate, cavalli dei nuclei ippomontati della Polizia di Stato, della Polizia Municipale e del Corpo Forestale. Come tale va soggetta ad un piano di regolamentazione e manutenzione specifica che riguardi anche trazzere e stradelle. Ove possibile i sentieri vanno resi disponibili a persone con ridotta mobilità o che usufruiscono di ausili.</p>
@@ -335,7 +350,10 @@
 <p>Attualmente il Piano prevede le seguenti classificazioni: D1 (<em>Viali storici facenti capo all'impianto Borbonico del Parco, caratterizzati dalla presenza di alberature storiche da risanare e recuperare</em>), D2 (<em>Viali secondari di rilevante importanza per l'assetto generale del Parco, per i quali sono da prevedere interventi di recupero e/o messa a dimora di alberature e siepi con reintegro della comunità vegetale</em>) e D3 (<em>Sentieri ed itinerari, preesistenti e di progetto, funzionali alla fruibilità del Parco</em>), oltre a <em>Sentieri ed itinerari, preesistenti, funzionali alla fruibilità del Parco</em>.<br> Nell'aggiornamento del piano è necessario rivedere la suddetta classificazione e produrre un allegato con la viabilità del parco che distingui per dimensione e colore i diversi viali e sentieri.</p>
 <p><a class="glightbox" href="img/16%20b%20sentieri%20D%20piano%20uso.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="sentieri" src="img/16%20b%20sentieri%20D%20piano%20uso.jpg" /></a></p>
 <p><a class="glightbox" href="img/viabilit%C3%A0.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="sentieri" src="img/viabilit%C3%A0.PNG" title="Sentieristica" /></a></p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -459,6 +477,33 @@
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

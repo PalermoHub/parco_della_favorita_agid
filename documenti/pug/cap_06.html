@@ -17,6 +17,12 @@
   <title>Direttive Generali PUG - 6. Il processo di formazione del PUG - Studio di fattibilità e valorizzazione Parco della Favorita</title>
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
+  <style>
+    #pug-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #pug-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #pug-toc .list-item:hover { color: #506b4f; }
+    #pug-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -331,7 +337,19 @@
     </div>
 
     <div class="container py-4">
-<h1>Direttive Generali PUG - 6. Il processo di formazione del PUG</h1>
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="pug-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#direttive-generali-pug---6-il-processo-di-formazione-del-pug"><span>Direttive Generali PUG - 6. Il processo di formazione del PUG</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 pug-content" id="pug-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#pug-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
+
+<h1 id="direttive-generali-pug---6-il-processo-di-formazione-del-pug">Direttive Generali PUG - 6. Il processo di formazione del PUG</h1>
 <style>
 img.resized60 { display: none;}
 </style>
@@ -487,7 +505,10 @@ soluzioni per migliorare l’uso dei suoli e la localizzazione di funzioni più 
 simulazione e analisi di scenari di emergenza, come alluvioni, terremoti o crisi sanitarie,
 possono aiutare l’amministrazione a progettare soluzioni per rendere la città più resiliente e
 antifragile.</p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -612,5 +633,29 @@ antifragile.</p>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="../../assets/js/share.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('pug-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
 </body>
 </html>

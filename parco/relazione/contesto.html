@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -327,7 +333,21 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#quadro-normativo-e-regolamentare"><span>Quadro normativo e regolamentare</span></a></li>
+                <li><a class="list-item small py-2" href="#la-proprieta-e-la-gestione"><span>La proprietà e la gestione</span></a></li>
+                <li><a class="list-item small py-2" href="#i-fondamenti-dello-studio-di-fattibilita"><span>I fondamenti dello Studio di fattibilità</span></a></li>
+                <li><a class="list-item small py-2" href="#valori-e-le-funzioni-ambientali"><span>Valori e le funzioni ambientali</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <style>
 .md-typeset .grid {grid-gap: .4rem;   display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,12rem),1fr));  margin: 1em 0;     font-size: .7rem;}
 .md-typeset h2 {font-size: 1.5em;}
@@ -353,7 +373,10 @@
 <p>In conformità con le prescrizioni del Piano di Utilizzazione, sono previsti nel Studio di fattibilità interventi di naturalizzazione che portano alla formazione di una copertura vegetale più ricca di complessità e biodiversità, tali da valorizzare gli aspetti naturalistici ed anche i valori paesaggistici della macchia e della foresta mediterranea. <br> Analoghi interventi di naturalizzazione, riguarderanno anche le siepi che fiancheggiano la viabilità e delimitano gli appezzamenti per recuperare una funzione paesaggistica spesso compromessa e insieme un valore ecologico fondamentale.</p>
 <p>Le funzioni ambientali vanno anche valorizzate attraverso interventi di fruizione, studio scientifico, divulgazione culturale: lungo gli antichi percorsi, chi passeggerà nel parco dovrà poter "leggere", attraverso supporti didattici, le tappe e gli elementi più significativi di una storia naturale.</p>
 <p><a class="glightbox" href="../relaz_sint/studio_fattibilita.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="studio" src="../relaz_sint/studio_fattibilita.jpg" title="Studio di fattibilità" /></a></p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -477,6 +500,33 @@
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

@@ -17,6 +17,12 @@
   <title>Direttive Generali PUG - 8. La pianificazione attuativa - Studio di fattibilità e valorizzazione Parco della Favorita</title>
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
+  <style>
+    #pug-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #pug-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #pug-toc .list-item:hover { color: #506b4f; }
+    #pug-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -331,7 +337,21 @@
     </div>
 
     <div class="container py-4">
-<h1>Direttive Generali PUG - 8. La pianificazione attuativa</h1>
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="pug-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#direttive-generali-pug---8-la-pianificazione-attuativa"><span>Direttive Generali PUG - 8. La pianificazione attuativa</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#81-la-rigenerazione-urbana-e-riqualificazione"><span>8.1. La rigenerazione urbana e riqualificazione</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#82-una-grande-variante-urbanistica-costiera-come-anticipazione-del-pug"><span>8.2. Una grande variante urbanistica costiera come anticipazione del PUG</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 pug-content" id="pug-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#pug-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
+
+<h1 id="direttive-generali-pug---8-la-pianificazione-attuativa">Direttive Generali PUG - 8. La pianificazione attuativa</h1>
 <style>
 img.resized60 { display: none;}
 </style>
@@ -428,7 +448,7 @@ successive modificazioni.</li>
 storici, secondo le direttive generali contenute nel seguente documento, individuandone
 adeguata perimetrazione a partire da quella definita dal vigente PRG come Zona A2 e normata
 dal PPE.</p>
-<h3>8.1. La rigenerazione urbana e riqualificazione</h3>
+<h3 id="81-la-rigenerazione-urbana-e-riqualificazione">8.1. La rigenerazione urbana e riqualificazione</h3>
 <p>Il PUG di Palermo potrà promuovere <strong>progetti di rigenerazione urbana</strong> (ex art. 33 della L.R.
 19/2020 e s.m.i.) finalizzati al contenimento del consumo di suolo anche attraverso la
 rigenerazione di aree edificate se esse hanno perduto la loro originaria utilizzazione, mediante
@@ -551,7 +571,7 @@ collaudo, il comune rilascia il certificato verde per gli interventi previsti da
 intestato al soggetto attuatore. Il suddetto certificato è condizione per il rilascio del titolo
 abilitativo ottenuto con le ordinarie procedure della legge regionale n. 16/2016 e successive
 modificazioni.</p>
-<h3>8.2. Una grande variante urbanistica costiera come anticipazione del PUG</h3>
+<h3 id="82-una-grande-variante-urbanistica-costiera-come-anticipazione-del-pug">8.2. Una grande variante urbanistica costiera come anticipazione del PUG</h3>
 <p>Il disegno urbanistico generale che emerge dalle Direttive Generali del PUG consente di
 fungere da quadro di coerenza generale per poter avviare la redazione e la successiva
 approvazione di una grande “Variante Urbanistica costiera” (ex art. 22 delle NTA del vigente
@@ -616,7 +636,10 @@ rigenerazione urbana lungo la fascia costiera, evitando una frammentazione degli
 recupero e sviluppo che ne indebolirebbe l’impatto, ne ridurrebbe i benefici, ne aumenterebbe
 le criticità d’uso e, infine, allontanerebbe nel tempo il ritorno dell’investimento delle risorse
 pubbliche e di quelle dei partner e investitori privati interessati.</p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -741,5 +764,29 @@ pubbliche e di quelle dei partner e investitori privati interessati.</p>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="../../assets/js/share.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('pug-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
 </body>
 </html>

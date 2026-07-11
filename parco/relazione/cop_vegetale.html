@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -327,7 +333,24 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#aree-agricole"><span>Aree Agricole</span></a></li>
+                <li><a class="list-item small py-2" href="#alberi-di-interesse-monumentale"><span>Alberi di interesse monumentale</span></a></li>
+                <li><a class="list-item small py-2" href="#siepi-e-alberate"><span>Siepi e alberate</span></a></li>
+                <li><a class="list-item small py-2" href="#aree-di-macchia-foresta-mediterranea-boschetti-storici-e-boschi-vetusti"><span>Aree di macchia foresta mediterranea, boschetti storici e boschi vetusti</span></a></li>
+                <li><a class="list-item small py-2" href="#boschi-artificiali-e-aree-incolte-da-avviare-alla-rinaturalizzazione"><span>Boschi artificiali e aree incolte da avviare alla rinaturalizzazione</span></a></li>
+                <li><a class="list-item small py-2" href="#boschi-artificiali-con-finalita-di-fruizione"><span>Boschi artificiali con finalità di fruizione</span></a></li>
+                <li><a class="list-item small py-2" href="#garighe-e-praterie"><span>Garighe e praterie</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="tipologie-di-copertura-vegetale">Tipologie di copertura vegetale</h1>
 <p>Il Parco della Favorita esprime aspetti di vegetazione antropica di tipo artificiale (coltivazioni, impianti ornamentali, rimboschimenti), spontaneo (sinantropico) e naturale.<br> Sin dal suo nascere, è stato sottoposto a interventi, con l'impianto di specie ornamentali, boschetti e con la creazione di piantagioni per la coltivazione delle più varie specie, alcune delle quali - soprattutto gli agrumi e in particolare i mandarini- occupano ancora oggi vaste superfici.</p>
 <p><a class="glightbox" href="img/isolati.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Gli isolati verdi" src="img/isolati.PNG" title="Gli isolati verdi" /></a></p>
@@ -381,7 +404,10 @@
 <p><a class="glightbox" href="img/praterie.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Garighe e praterie" src="img/praterie.PNG" title="Garighe e praterie" /></a></p>
 <p>Nell'aggiornamento del piano va inclusa la pianificazione dell'intero Piano Landolina fino a Valdesi. Alcune di queste formazioni ricadono nelle aree Natura 2000 (ZSC-ITA 0020014 -- Monte Pellegrino) e come tali sono soggette agli interventi previsti per dette tipologie di habitat.</p>
 <p><a class="glightbox" href="img/12%20boschi%20naturali%20gariga.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=" macchia foresta" src="img/12%20boschi%20naturali%20gariga.jpg" title="Garighe e praterie" /></a></p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -505,6 +531,33 @@
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

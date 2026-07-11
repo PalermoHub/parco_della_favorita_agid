@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -323,7 +329,26 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#il-parco-della-favorita-un-mosaico-paesaggistico-da-preservare"><span>Il Parco della Favorita: un mosaico paesaggistico da preservare</span></a></li>
+                <li><a class="list-item small py-2" href="#obiettivi-dello-studio-di-fattibilita"><span>Obiettivi dello Studio di fattibilità</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#elaborati-dello-studio-di-fattibilita"><span>Elaborati dello Studio di fattibilità</span></a></li>
+                <li><a class="list-item small py-2" href="#linee-guida-del-piano"><span>Linee guida del Piano</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#macro-aree"><span>Macro aree</span></a></li>
+                <li><a class="list-item small py-2" href="#confronto"><span>Confronto</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#mappa-confronto-sincronizzata"><span>Mappa confronto sincronizzata</span></a></li>
+                <li><a class="list-item small py-2" href="#conclusioni"><span>Conclusioni</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#statistiche-delle-superfici"><span>Statistiche delle Superfici</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="relazione-sintetica-dello-studio-di-fattibilita-per-la-rigenerazione-funzionale">Relazione sintetica dello Studio di fattibilità per la rigenerazione funzionale</h1>
 <p>Il Parco della Favorita, un&#39;area verde di eccezionale valore storico, paesaggistico e naturalistico
 nella città di Palermo, è oggetto di un ambizioso piano di rigenerazione funzionale. Questo
@@ -609,7 +634,10 @@ Questa superficie risulta suddivisa come indicato in tabella.</p>
 <li>Le <strong>aree costruite</strong> (Edifici) sono marginali (&lt;2%) e includono edifici storici, edilizia rurale da riconvertire o da demolire.</li>
 <li>Il <strong>Parco multifunzionale</strong> con una superficie di ~35.90 ha, rappresenta il 13.71%, le <strong>aree sportive</strong> con una superficie di ~11 ha rappresenta il 4.20% della superficie totale.</li>
 </ul>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -733,6 +761,33 @@ Questa superficie risulta suddivisa come indicato in tabella.</p>
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

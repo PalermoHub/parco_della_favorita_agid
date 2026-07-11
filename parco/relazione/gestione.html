@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -327,7 +333,18 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#accordi-pubblico-privato"><span>Accordi pubblico privato</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="piano-di-gestione-del-parco">Piano di Gestione del Parco</h1>
 <p>Individuare un organismo di gestione del Parco, valutare la forma giuridica, il modello funzionale, la partecipazione dei privati secondo formule e categorie. La Gestione può essere affidata ad un organismo pubblico o ad organismi privati singoli o consorziati (tra istituzioni proprietarie ed enti o associazioni).</p>
 <p>L'organismo di gestione opera di concerto con il Comune, la Soprintendenza BBCCAA e l'Ente gestore della riserva e può avvalersi di soggetti che agiscono in diversi ambiti, dall'assistenza alle persone con disabilità, alla tutela dell'ambiente, ai servizi sanitari e socio-assistenziali, all'animazione culturale, ecc... </p>
@@ -347,7 +364,10 @@
 <li>Recupero e valorizzazione del patrimonio immobiliare e dei giardini</li>
 </ul>
 <p>Elemento importante che riguarda la restituzione di aree del Parco alla coltura degli agrumi è lo sviluppo di un adeguato modello di gestione volto a rendere economicamente compatibile l'attività agricola.</p>
-</div>
+
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -471,6 +491,33 @@
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

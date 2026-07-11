@@ -18,6 +18,12 @@
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
   <link rel="stylesheet" href="../../assets/stylesheets/glightbox.min.css">
+  <style>
+    #piano-toc { max-height: calc(100vh - 120px); overflow-y: auto; }
+    #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
+    #piano-toc .list-item:hover { color: #506b4f; }
+    #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -323,7 +329,33 @@
       </div>
     </div>
 
-    <div class="container py-4 piano-content">
+    <div class="container py-4">
+      <div class="row">
+        <div class="col-lg-3 d-none d-lg-block">
+          <nav id="piano-toc" class="sticky-top pt-2" style="top:100px;" aria-label="Indice dei paragrafi">
+            <div class="link-list-wrapper">
+              <ul class="link-list">
+                <li><a class="list-item small py-2" href="#obiettivi-del-piano-duso-vigente"><span>Obiettivi del piano d'uso vigente</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#recupero-dellunitarieta-del-parco"><span>Recupero dell'unitarietà del parco</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#recupero-della-leggibilita-dei-rapporti-con-le-condizioni-al-contorno"><span>Recupero della leggibilità dei rapporti col contorno</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#promozione-di-azioni-che-carichino-il-parco-di-nuovi-valori"><span>Nuovi valori per il parco</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#promozione-di-un-processo-di-appropriazione-collettiva"><span>Appropriazione collettiva</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#sperimentazione-di-un-modello-operativo-e-gestionale"><span>Modello operativo e gestionale</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#ricerca-di-uno-stabile-supporto-finanziario"><span>Supporto finanziario</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#tutela-e-valorizzazione-del-patrimonio"><span>Tutela e valorizzazione del patrimonio</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#valorizzazione-delle-aree-agricole"><span>Valorizzazione delle aree agricole</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#miglioramento-della-fruizione-pubblica"><span>Fruizione pubblica</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#riqualificazione-del-paesaggio"><span>Riqualificazione del paesaggio</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#tutela-della-biodiversita"><span>Tutela della biodiversità</span></a></li>
+                <li><a class="list-item small py-1 ps-3" href="#razionalizzazione-della-mobilita"><span>Razionalizzazione della mobilità</span></a></li>
+                <li><a class="list-item small py-2" href="#vegetazione-ridisegno"><span>Vegetazione (Ridisegno)</span></a></li>
+                <li><a class="list-item small py-2" href="#reti-tecnologiche"><span>Reti tecnologiche</span></a></li>
+                <li><a class="list-item small py-2" href="#documenti-pubblicati-link"><span>Documenti pubblicati</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-lg-9 piano-content" id="piano-content-body" tabindex="-1" data-bs-spy="scroll" data-bs-target="#piano-toc" data-bs-offset="120" data-bs-smooth-scroll="true">
 <h1 id="piano-duso-della-favorita-adottato-con-delibera-di-cc-n-294-del-08092004">Piano d'Uso della Favorita, adottato con Delibera di C.C. n. 294 del 08/09/2004</h1>
 <p><a class="glightbox" href="piano_uso.jpg" data-type="image" data-width="100%" data-height="auto" data-description="Piano d'Uso della Favorita, adottato con Delibera di C.C. n. 294 del 08/09/2004" data-desc-position="bottom" data-gallery="analisi"><img alt="Piano d'Uso della Favorita, adottato con Delibera di C.C. n. 294 del 08/09/2004" data-description="Piano d'Uso della Favorita, adottato con Delibera di C.C. n. 294 del 08/09/2004" data-gallery="analisi" src="piano_uso.jpg" title="Piano d'uso" /></a></p>
 <h2 id="obiettivi-del-piano-duso-vigente">Obiettivi del piano d'uso vigente</h2>
@@ -586,6 +618,9 @@
   </a>
 </p>
 </div>
+        </div>
+      </div>
+    </div>
 
   </main>
 
@@ -709,6 +744,33 @@
   </a>
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var navWrapper = document.querySelector('.it-nav-wrapper');
+      var toc = document.getElementById('piano-toc');
+      if (!navWrapper || !toc) return;
+      function updateTocTop() {
+        var h = navWrapper.getBoundingClientRect().height;
+        toc.style.top = (h + 16) + 'px';
+      }
+      navWrapper.addEventListener('on.bs.sticky', updateTocTop);
+      navWrapper.addEventListener('off.bs.sticky', updateTocTop);
+      window.addEventListener('resize', updateTocTop);
+      updateTocTop();
+
+      // Fallback: se lo scrollspy non ha ancora attivato una voce (es. al primo
+      // caricamento, prima che le immagini definiscano il layout definitivo),
+      // seleziona la prima voce dell'indice.
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          if (!toc.querySelector('.list-item.active')) {
+            var first = toc.querySelector('.list-item');
+            if (first) first.classList.add('active');
+          }
+        }, 300);
+      });
+    });
+  </script>
   <script src="../../assets/javascripts/glightbox.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
