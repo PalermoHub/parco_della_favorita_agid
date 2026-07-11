@@ -28675,22 +28675,26 @@ select.just-validate-success-field {
 }
 @media (min-width: 992px) {
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav {
-    gap: 8px;
+    gap: 4px;
   }
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li a.nav-link,
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li button.nav-link {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 8px;
+    padding-right: 8px;
     font-size: 0.875rem;
     font-weight: 600;
     white-space: nowrap;
   }
-  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li a.nav-link {
+  /* Le voci con dropdown hanno la freccina come elemento a parte subito
+     dopo: il padding-right del link va tagliato per tutte le larghezze
+     (non solo qui), altrimenti al breakpoint successivo torna largo e
+     l'ultima voce (About) trabocca fuori dal container. */
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item.dropdown a.nav-link {
     padding-right: 2px;
   }
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item button.btn.dropdown-toggle {
     padding-left: 0;
-    padding-right: 10px;
+    padding-right: 8px;
     min-width: 20px;
   }
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item button.btn.dropdown-toggle svg.icon {
@@ -28711,18 +28715,24 @@ select.just-validate-success-field {
     padding-right: 6px;
     font-size: 0.75rem;
   }
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item.dropdown a.nav-link {
+    padding-right: 2px;
+  }
 }
 /* Da 1400px in su c'è margine per la spaziatura ariosa in stile Bootstrap
    Italia (voci ben distanziate, font più leggibile). */
 @media (min-width: 1400px) {
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav {
-    gap: 12px;
+    gap: 8px;
   }
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li a.nav-link,
   .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li button.nav-link {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 12px;
+    padding-right: 12px;
     font-size: 0.9375rem;
+  }
+  .it-header-navbar-wrapper nav .navbar-collapsable .menu-wrapper .navbar-nav li.nav-item.dropdown a.nav-link {
+    padding-right: 2px;
   }
 }
 /* Header sticky (fixed) via data-bs-toggle="sticky": la libreria imposta
