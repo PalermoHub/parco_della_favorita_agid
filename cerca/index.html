@@ -297,6 +297,7 @@
   <main id="main-content">
     <div class="container py-4">
 <h1>Cerca nel sito</h1>
+<p>Cerca tra i contenuti dello studio di fattibilità: relazione generale, stato di fatto, mappatura digitale e bibliografia.
 <div id="search"></div>
 <link href="../pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="../pagefind/pagefind-ui.js"></script>
@@ -332,7 +333,20 @@
 </style>
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+    new PagefindUI({
+      element: "#search",
+      showSubResults: true,
+      showImages: false,
+      translations: {
+        placeholder: "Es. viabilità, Villa Niscemi, cartografia storica...",
+        zero_results: "Nessun risultato trovato per [SEARCH_TERM]",
+        many_results: "[COUNT] risultati trovati per [SEARCH_TERM]",
+        one_result: "[COUNT] risultato trovato per [SEARCH_TERM]",
+        searching: "Ricerca in corso per [SEARCH_TERM]...",
+        load_more: "Carica altri risultati"
+      }
+    });
+
     const form = document.querySelector('#search .pagefind-ui__form');
     const input = document.querySelector('#search .pagefind-ui__search-input');
     if (form && input) {
