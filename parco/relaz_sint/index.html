@@ -23,10 +23,17 @@
     #piano-toc .list-item { border-left: 3px solid transparent; color: #495057; }
     #piano-toc .list-item:hover { color: #506b4f; }
     #piano-toc .list-item.active { border-left-color: #506b4f; color: #506b4f; font-weight: 600; background-color: rgba(80,107,79,.06); }
+    .table-zonizzazione { border-collapse: separate; border-spacing: 0; border-radius: .5rem; overflow: hidden; }
+    .table-zonizzazione thead th { background-color: #506b4f; color: #fff; font-weight: 700; border: 0; padding: .85rem 1rem; }
+    .table-zonizzazione tbody td { border: 0; padding: .75rem 1rem; vertical-align: middle; }
+    .table-zonizzazione tbody tr:nth-child(odd) { background-color: rgba(80,107,79,.16); }
+    .table-zonizzazione tbody tr:nth-child(even) { background-color: transparent; }
   </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
+  <a class="visually-hidden-focusable" href="#nav-principale">Vai al menu di navigazione</a>
+  <a class="visually-hidden-focusable" href="#footer">Vai al footer</a>
 
   <header class="it-header-wrapper">
   <div class="it-header-slim-wrapper d-none d-md-block">
@@ -556,75 +563,27 @@ proprio territorio.</p>
 Lo studio di fattibilità ha preso in considerazione anche aree del Parco non comprese dal perimetro della Zona B di Riserva, per una superficie complessiva di circa 261 ha.<br>
 Questa superficie risulta suddivisa come indicato in tabella.</p>
 <div class="table-responsive">
-<table class="table">
+<table class="table table-zonizzazione">
 <thead>
 <tr>
-<th> <strong>Zonizzazione</strong>            </th>
-<th><strong>Sup. (ha)</strong></th>
-<th><strong>Sup. (%)</strong></th>
+<th>Zonizzazione</th>
+<th class="text-end">Sup. (ha)</th>
+<th class="text-end">Sup. (%)</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td> Aree agricole                </td>
-<td>~24.68        </td>
-<td>~9.43%        </td>
-</tr>
-<tr>
-<td> Aree archeologiche          </td>
-<td>~0.03          </td>
-<td>~0.01%        </td>
-</tr>
-<tr>
-<td> Edifici archeologia militare</td>
-<td>~0.78          </td>
-<td>~0.30%        </td>
-</tr>
-<tr>
-<td> Edifici da demolire          </td>
-<td>~0.43          </td>
-<td>~0.16%        </td>
-</tr>
-<tr>
-<td> Edifici da riconvertire      </td>
-<td>~0.65          </td>
-<td>~0.25%        </td>
-</tr>
-<tr>
-<td> Edifici storici              </td>
-<td>~1.38          </td>
-<td>~0.53%        </td>
-</tr>
-<tr>
-<td> Formazioni boschive          </td>
-<td>~142.47        </td>
-<td>~54.42%        </td>
-</tr>
-<tr>
-<td> Giardini ornamentali        </td>
-<td>~31.17        </td>
-<td>~11.90%        </td>
-</tr>
-<tr>
-<td> Impianti sportivi            </td>
-<td>~11.00        </td>
-<td>~4.20%        </td>
-</tr>
-<tr>
-<td> Parco multifunzionale        </td>
-<td>~35.90        </td>
-<td>~13.71%        </td>
-</tr>
-<tr>
-<td> Vivaio comunale              </td>
-<td>~2.35          </td>
-<td>~0.90%      </td>
-</tr>
-<tr>
-<td> Viali principali             </td>
-<td>~11.00        </td>
-<td>~4.20%        </td>
-</tr>
+<tr><td>Aree agricole</td><td class="text-end">~24.68</td><td class="text-end">~9.43%</td></tr>
+<tr><td>Aree archeologiche</td><td class="text-end">~0.03</td><td class="text-end">~0.01%</td></tr>
+<tr><td>Edifici archeologia militare</td><td class="text-end">~0.78</td><td class="text-end">~0.30%</td></tr>
+<tr><td>Edifici da demolire</td><td class="text-end">~0.43</td><td class="text-end">~0.16%</td></tr>
+<tr><td>Edifici da riconvertire</td><td class="text-end">~0.65</td><td class="text-end">~0.25%</td></tr>
+<tr><td>Edifici storici</td><td class="text-end">~1.38</td><td class="text-end">~0.53%</td></tr>
+<tr><td>Formazioni boschive</td><td class="text-end">~142.47</td><td class="text-end">~54.42%</td></tr>
+<tr><td>Giardini ornamentali</td><td class="text-end">~31.17</td><td class="text-end">~11.90%</td></tr>
+<tr><td>Impianti sportivi</td><td class="text-end">~11.00</td><td class="text-end">~4.20%</td></tr>
+<tr><td>Parco multifunzionale</td><td class="text-end">~35.90</td><td class="text-end">~13.71%</td></tr>
+<tr><td>Vivaio comunale</td><td class="text-end">~2.35</td><td class="text-end">~0.90%</td></tr>
+<tr><td>Viali principali</td><td class="text-end">~11.00</td><td class="text-end">~4.20%</td></tr>
 </tbody>
 </table>
 </div>
@@ -649,6 +608,29 @@ Questa superficie risulta suddivisa come indicato in tabella.</p>
 <footer class="it-footer" id="footer">
   <div class="it-footer-main">
     <div class="container">
+      <section id="footer-tags" class="pt-4 pb-4 mb-2 border-white border-bottom border-opacity-10">
+        <div class="row">
+          <div class="col-12">
+            <h4>PARLIAMO DI</h4>
+            <div class="d-flex flex-wrap gap-3 mb-3">
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#relazione-di-progetto">Relazione di progetto</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#analisi-del-contesto">Analisi del contesto</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#pianificazione-urbanistica">Pianificazione urbanistica (P.U.G.)</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#atti-amministrativi">Atti amministrativi e normativa</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#mappatura-digitale">Mappatura digitale e WebGIS</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#cartografia-storica">Cartografia storica</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#bibliografia-storica">Bibliografia storica</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#storia-e-archeologia">Storia e archeologia</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#natura-e-vegetazione">Natura e vegetazione</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#architetture-e-manufatti">Architetture e manufatti storici</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#sistema-delle-acque">Sistema delle acque</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../tags.html#documentazione-fotografica">Documentazione fotografica</a>
+                  <a class="badge badge-outline-white rounded-pill px-3 py-2 fw-normal" href="../../parco/relaz_sint/index.html#macro-aree">Macro aree</a>
+            </div>
+            <a class="text-white fw-semibold text-decoration-underline d-inline-block mt-1" href="../../tags.html">Scopri tutti i tag</a>
+          </div>
+        </div>
+      </section>
       <section>
         <div class="row clearfix">
           <div class="col-sm-12">
@@ -688,14 +670,27 @@ Questa superficie risulta suddivisa come indicato in tabella.</p>
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 pb-2" id="footer-argomento-2">
-            <h4>NOVITA'</h4>
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-2" id="footer-argomento-2">
+            <h4>SEZIONI DEL SITO</h4>
             <div class="link-list-wrapper">
-              <ul class="footer-list link-list clearfix">
-                <li><a class="list-item" href="https://pug.comune.palermo.it/notizie.php" title="Vai alla pagina: Notizie">Notizie</a></li>
-                <li><a class="list-item" href="https://pug.comune.palermo.it/comunicati.php" title="Vai alla pagina: Comunicati">Comunicati</a></li>
-                <li><a class="list-item" href="https://pug.comune.palermo.it/avvisi.php" title="Vai alla pagina: Avvisi">Avvisi</a></li>
-              </ul>
+              <div class="row">
+                <div class="col-6">
+                  <ul class="footer-list link-list clearfix">
+                    <li><a class="list-item" href="../../" title="Vai alla pagina: Home">Home</a></li>
+                    <li><a class="list-item" href="../../parco/piano_uso/piano_uso.html" title="Vai alla pagina: Stato di fatto">Stato di fatto</a></li>
+                    <li><a class="list-item" href="../../parco/relaz_sint/index.html" title="Vai alla pagina: Relazione sintetica">Relazione sintetica</a></li>
+                    <li><a class="list-item" href="../../parco/relazione/index.html" title="Vai alla pagina: Relazione Generale">Relazione Generale</a></li>
+                  </ul>
+                </div>
+                <div class="col-6">
+                  <ul class="footer-list link-list clearfix">
+                    <li><a class="list-item" href="../../webgis/index.html" title="Vai alla pagina: Mappatura digitale">Mappatura digitale</a></li>
+                    <li><a class="list-item" href="../../biblio/index.html" title="Vai alla pagina: Bibliografia">Bibliografia</a></li>
+                    <li><a class="list-item" href="../../documenti/risorse.html" title="Vai alla pagina: Risorse, dati e analisi">Risorse, dati e analisi</a></li>
+                    <li><a class="list-item" href="../../about/index.html" title="Vai alla pagina: About">About</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
