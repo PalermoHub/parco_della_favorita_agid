@@ -1,6 +1,7 @@
 <!doctype html>
 
 
+
 <html lang="it">
 <head>
   <meta charset="utf-8">
@@ -324,6 +325,15 @@
   <blockquote class="border-start border-4 border-primary ps-3 my-4">
     Realizzare il polo integrato naturalistico, sportivo e del tempo libero del Parco della Favorita, di viale del Fante e di viale Duca degli Abbruzzi. Senza pregiudicare i valori naturalistici, è necessario intervenire con azioni innovative di tutela ambientale e di valorizzazione delle aree compatibili per il tempo libero della Riserva Naturale Orientata della Favorita e di Monte Pellegrino, connettendo le aree di pregio naturalistico con le aree attrezzate, gli impianti sportivi esistenti e le aree monumentali con le aree limitrofe per estenderne la funzione legata alle attività all'aria aperta. Il polo integrato dovrà includere l'ex campo nomadi, il parco di Villa Castelnuovo e il Teatro di Verdura, la Palazzina Cinese e Villa Niscemi, la Città dei Ragazzi e il Museo Pitrè, fino a includere la valorizzazione delle cisterne progettate da Pier Luigi Nervi alle falde di Monte Pellegrino entro un grande progetto di parco urbano in cui coesistano la protezione dei valori paesaggistici ed agricoli, la valorizzazione dei giardini storici e la fruizione del tempo libero compatibile. Le preziose aree agricole dei mandarineti della Favorita, in particolare, dovranno offrire, eventualmente differenziandosi, funzioni culturali di testimonianza del paesaggio storico e didattico-ambientali collegate a una nuova agricoltura urbana. Anche le attrezzature sportive comprese nell'area dovranno trovare una integrazione complessiva che miri alla migliore accessibilità e fruizione dello stadio di calcio, dello stadio per l'atletica leggera e dell'area per le attività all'aperto collocati lungo viale del Fante anche inserendo ulteriori attrezzature sportive e ricreative più leggere (percorsi-vita, piste di pattinaggio, percorsi equestri, palestre di arrampicata, skateboard acrobatico, yoga, tai chi chuan, pilates, ginnastica dolce, etc.). Particolare attenzione dovrà essere data alla riorganizzazione ed incremento delle aree a parcheggio e alla viabilità con adeguata differenziazione delle modalità e delle velocità (ciclovie in sede propria, zone 30, sentieri pedonali, funivia) nonché alla realizzazione di adeguati punti di ristoro, di informazione, di educazione ambientale e di servizi per rendere più attrattiva e performativa tutta l'area, facendone una grande centralità vegetale della città.
   </blockquote>
+
+  <div class="bg-primary bg-opacity-10 border border-primary rounded-3 p-4 my-4 text-center">
+    <h3 class="mb-2">Il Sogno della Favorita</h3>
+    <p class="mb-3">Rosalia e suo nonno passeggiano tra i viali del parco: in un racconto illustrato e narrato scoprono perché la Favorita è un tesoro da far tornare a splendere. Una favola per grandi e piccini sul futuro del parco.</p>
+    <button type="button" class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2" id="open-storybook-btn" data-storybook-url="https://gemini.google.com/share/0b3c71263204">
+      <svg class="icon icon-sm icon-white"><use href="assets/bootstrap-italia/svg/sprites.svg#it-book"></use></svg>
+      Leggi "Il Sogno della Favorita"
+    </button>
+  </div>
 </div>
 
   </main>
@@ -521,5 +531,14 @@
 
   <script src="assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="assets/js/share.js"></script>
+  <script>
+    document.getElementById('open-storybook-btn')?.addEventListener('click', function () {
+      var url = this.dataset.storybookUrl;
+      var w = 1000, h = 800;
+      var left = Math.round((screen.width - w) / 2);
+      var top = Math.round((screen.height - h) / 2);
+      window.open(url, 'storybook', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=yes');
+    });
+  </script>
 </body>
 </html>
