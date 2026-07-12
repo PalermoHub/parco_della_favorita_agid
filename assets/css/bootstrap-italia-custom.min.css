@@ -28917,3 +28917,13 @@ body > footer.it-footer {
 .it-header-navbar-wrapper .dropdown-menu {
   z-index: 1030;
 }
+
+/* Fix: ultima voce navbar (About) apre il sottomenu a destra ed esce dalla pagina; forzato ad aprirsi a sinistra */
+.it-header-navbar-wrapper .navbar-nav > li.nav-item.dropdown:last-child .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+.it-header-navbar-wrapper .navbar-nav > li.nav-item.dropdown:last-child .dropdown-menu:before {
+  left: auto;
+  right: 12px;
+}
