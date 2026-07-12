@@ -17,6 +17,26 @@
   <title>Riserva terrestre della Favorita - Studio di fattibilità e valorizzazione Parco della Favorita</title>
   <link rel="icon" href="../../assets/img/favicon.png">
   <link rel="stylesheet" href="../../assets/css/bootstrap-italia-custom.min.css">
+  <style>
+    .it-header-navbar-wrapper .navbar-nav > li > .nav-link.active {
+      position: relative;
+      color: #fff;
+    }
+    .it-header-navbar-wrapper .navbar-nav > li > .nav-link.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3px;
+      background-color: #fff;
+    }
+    @media (max-width: 992px) {
+      .it-header-navbar-wrapper .navbar-nav .dropdown-menu .dropdown-item {
+        color: #ffffff;
+      }
+    }
+  </style>
 </head>
 <body>
   <a class="visually-hidden-focusable" href="#main-content">Vai al contenuto principale</a>
@@ -511,6 +531,7 @@
             </div>
 
               </div>
+              <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 pb-2 d-none d-xl-block"></div>
               <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 pb-2">
                 <h4>Sezioni del sito</h4>
                 <div class="link-list-wrapper">
@@ -519,19 +540,14 @@
                     <li><a class="list-item" href="../../parco/piano_uso/piano_uso.html" title="Vai alla pagina: Stato di fatto">Stato di fatto</a></li>
                     <li><a class="list-item" href="../../parco/relaz_sint/index.html" title="Vai alla pagina: Relazione sintetica">Relazione sintetica</a></li>
                     <li><a class="list-item" href="../../parco/relazione/index.html" title="Vai alla pagina: Relazione Generale">Relazione Generale</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 pb-2">
-                <div class="link-list-wrapper">
-                  <ul class="footer-list link-list clearfix">
-                    <li><a class="list-item" href="../../webgis/index.html" title="Vai alla pagina: Mappatura digitale">Mappatura digitale</a></li>
+<li><a class="list-item" href="../../webgis/index.html" title="Vai alla pagina: Mappatura digitale">Mappatura digitale</a></li>
                     <li><a class="list-item" href="../../biblio/index.html" title="Vai alla pagina: Bibliografia">Bibliografia</a></li>
                     <li><a class="list-item" href="../../documenti/risorse.html" title="Vai alla pagina: Risorse, dati e analisi">Risorse, dati e analisi</a></li>
                     <li><a class="list-item" href="../../about/index.html" title="Vai alla pagina: About">About</a></li>
                   </ul>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>
@@ -558,5 +574,18 @@
 
   <script src="../../assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="../../assets/js/share.js"></script>
+  <script>
+    (function () {
+      var currentPath = location.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '') || '/';
+      document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item').forEach(function (link) {
+        var linkPath = link.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '') || '/';
+        if (linkPath === currentPath) {
+          link.classList.add('active');
+          var parentNavLink = link.closest('li.nav-item.dropdown')?.querySelector(':scope > .nav-link');
+          if (parentNavLink) parentNavLink.classList.add('active');
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
