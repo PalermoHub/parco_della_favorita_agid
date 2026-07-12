@@ -2,6 +2,8 @@
 
 
 
+
+
 <html lang="it">
 <head>
   <meta charset="utf-8">
@@ -529,6 +531,20 @@
     <svg class="icon icon-white"><use xlink:href="assets/bootstrap-italia/svg/sprites.svg#it-arrow-up"></use></svg>
   </a>
 
+  <div class="modal fade" id="demo-notice-modal" tabindex="-1" role="dialog" aria-labelledby="demo-notice-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="demo-notice-title">Avviso</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+        </div>
+        <div class="modal-body bg-primary bg-opacity-10 border-start border-primary border-4">
+          <p class="mb-0">Demo ad uso esclusivo di studio e valutazione del refactoring da Material for MkDocs a Designers Italia (AGID).<br><br></p
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/bootstrap-italia/js/bootstrap-italia.bundle.min.js"></script>
   <script src="assets/js/share.js"></script>
   <script>
@@ -539,6 +555,15 @@
       var top = Math.round((screen.height - h) / 2);
       window.open(url, 'storybook', 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',resizable=yes,scrollbars=yes');
     });
+
+    (function () {
+      var modalEl = document.getElementById('demo-notice-modal');
+      if (!modalEl || typeof bootstrap === 'undefined') return;
+      var modal = new bootstrap.Modal(modalEl, { backdrop: true, keyboard: true });
+      modal.show();
+      var autoClose = setTimeout(function () { modal.hide(); }, 5000);
+      modalEl.addEventListener('hide.bs.modal', function () { clearTimeout(autoClose); });
+    })();
   </script>
 </body>
 </html>
