@@ -457,3 +457,8 @@ table {
 	
     /* Mostra solo l'icona per Home */
     .md-breadcrumbs__item:first-child
+
+/* Le tendine del menu principale devono stare sopra la sidebar sticky (.sticky-top ha z-index:1020) */
+.it-header-navbar-wrapper .dropdown-menu {
+  z-index: 1030;
+}

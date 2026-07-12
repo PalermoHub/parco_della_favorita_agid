@@ -8468,7 +8468,7 @@ p.it-card-text a:focus:not([data-focus-mouse="true"], .btn) {
 }
 .it-header-wrapper {
   position: relative;
-  z-index: 5;
+  z-index: 1035;
 }
 .it-header-wrapper .it-nav-wrapper {
   position: relative;
@@ -28911,4 +28911,9 @@ body > footer.it-footer {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* Fix: le tendine del menu principale devono stare sopra la sidebar sticky (.sticky-top ha z-index:1020) */
+.it-header-navbar-wrapper .dropdown-menu {
+  z-index: 1030;
 }
